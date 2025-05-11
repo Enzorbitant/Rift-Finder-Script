@@ -38,7 +38,6 @@ local function verifierCle()
         error("Clé invalide. Exécution du script arrêtée.")
     end
 
-    -- Skip HWID check since executors are choking on RbxAnalyticsService
     print("Key HWID: " .. tostring(donneesCle.HWID))
 
     if not donneesCle.Comptes[userId] then
@@ -61,194 +60,349 @@ verifierCle()
 local CHEMINS_FAILLES = {
     ROYAL_CHEST = {
         Chemin = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("royal-chest")
-            if rift and rift:FindFirstChild("Decoration") then
-                local model = rift.Decoration:FindFirstChild("Model")
-                if model and model:FindFirstChild("islandbottom_collision") then
-                    return model.islandbottom_collision.MeshPart
-                end
-            end
-            return nil
+            print("Checking Royal Chest path...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found in Workspace.Rendered"); return nil end
+            local rift = rifts:FindFirstChild("royal-chest")
+            if not rift then print("royal-chest not found in Rifts"); return nil end
+            local decoration = rift:FindFirstChild("Decoration")
+            if not decoration then print("Decoration not found in royal-chest"); return nil end
+            local model = decoration:FindFirstChild("Model")
+            if not model then print("Model not found in Decoration"); return nil end
+            local islandbottom = model:FindFirstChild("islandbottom_collision")
+            if not islandbottom then print("islandbottom_collision not found in Model"); return nil end
+            local meshPart = islandbottom:FindFirstChild("MeshPart")
+            if not meshPart then print("MeshPart not found in islandbottom_collision"); return nil end
+            print("Royal Chest path found!")
+            return meshPart
         end,
         Minuteur = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("royal-chest")
-            if rift and rift:FindFirstChild("Display") then
-                return rift.Display.SurfaceGui.Timer
-            end
-            return nil
+            print("Checking Royal Chest timer...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found for timer"); return nil end
+            local rift = rifts:FindFirstChild("royal-chest")
+            if not rift then print("royal-chest not found for timer"); return nil end
+            local display = rift:FindFirstChild("Display")
+            if not display then print("Display not found in royal-chest"); return nil end
+            local surfaceGui = display:FindFirstChild("SurfaceGui")
+            if not surfaceGui then print("SurfaceGui not found in Display"); return nil end
+            local timer = surfaceGui:FindFirstChild("Timer")
+            if not timer then print("Timer not found in SurfaceGui"); return nil end
+            print("Royal Chest timer found!")
+            return timer
         end,
         Hauteur = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("royal-chest")
-            if rift and rift:FindFirstChild("Decoration") then
-                return rift.Decoration.Position.Y
-            end
-            return nil
+            print("Checking Royal Chest height...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found for height"); return nil end
+            local rift = rifts:FindFirstChild("royal-chest")
+            if not rift then print("royal-chest not found for height"); return nil end
+            local decoration = rift:FindFirstChild("Decoration")
+            if not decoration then print("Decoration not found for height"); return nil end
+            print("Royal Chest height found: " .. tostring(decoration.Position.Y))
+            return decoration.Position.Y
         end
     },
     GOLDEN_CHEST = {
         Chemin = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("golden-chest")
-            if rift and rift:FindFirstChild("Decoration") then
-                return rift.Decoration
-            end
-            return nil
+            print("Checking Golden Chest path...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found in Workspace.Rendered"); return nil end
+            local rift = rifts:FindFirstChild("golden-chest")
+            if not rift then print("golden-chest not found in Rifts"); return nil end
+            local decoration = rift:FindFirstChild("Decoration")
+            if not decoration then print("Decoration not found in golden-chest"); return nil end
+            print("Golden Chest path found!")
+            return decoration
         end,
         Minuteur = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("golden-chest")
-            if rift and rift:FindFirstChild("Display") then
-                return rift.Display.SurfaceGui.Timer
-            end
-            return nil
+            print("Checking Golden Chest timer...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found for timer"); return nil end
+            local rift = rifts:FindFirstChild("golden-chest")
+            if not rift then print("golden-chest not found for timer"); return nil end
+            local display = rift:FindFirstChild("Display")
+            if not display then print("Display not found in golden-chest"); return nil end
+            local surfaceGui = display:FindFirstChild("SurfaceGui")
+            if not surfaceGui then print("SurfaceGui not found in Display"); return nil end
+            local timer = surfaceGui:FindFirstChild("Timer")
+            if not timer then print("Timer not found in SurfaceGui"); return nil end
+            print("Golden Chest timer found!")
+            return timer
         end,
         Hauteur = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("golden-chest")
-            if rift and rift:FindFirstChild("Decoration") then
-                return rift.Decoration.Position.Y
-            end
-            return nil
+            print("Checking Golden Chest height...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found for height"); return nil end
+            local rift = rifts:FindFirstChild("golden-chest")
+            if not rift then print("golden-chest not found for height"); return nil end
+            local decoration = rift:FindFirstChild("Decoration")
+            if not decoration then print("Decoration not found for height"); return nil end
+            print("Golden Chest height found: " .. tostring(decoration.Position.Y))
+            return decoration.Position.Y
         end
     },
     DICE_CHEST = {
         Chemin = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("dice-rift")
-            if rift and rift:FindFirstChild("Decoration") then
-                return rift.Decoration
-            end
-            return nil
+            print("Checking Dice Chest path...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found in Workspace.Rendered"); return nil end
+            local rift = rifts:FindFirstChild("dice-rift")
+            if not rift then print("dice-rift not found in Rifts"); return nil end
+            local decoration = rift:FindFirstChild("Decoration")
+            if not decoration then print("Decoration not found in dice-rift"); return nil end
+            print("Dice Chest path found!")
+            return decoration
         end,
         Minuteur = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("dice-rift")
-            if rift and rift:FindFirstChild("Display") then
-                return rift.Display.SurfaceGui.Timer
-            end
-            return nil
+            print("Checking Dice Chest timer...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found for timer"); return nil end
+            local rift = rifts:FindFirstChild("dice-rift")
+            if not rift then print("dice-rift not found for timer"); return nil end
+            local display = rift:FindFirstChild("Display")
+            if not display then print("Display not found in dice-rift"); return nil end
+            local surfaceGui = display:FindFirstChild("SurfaceGui")
+            if not surfaceGui then print("SurfaceGui not found in Display"); return nil end
+            local timer = surfaceGui:FindFirstChild("Timer")
+            if not timer then print("Timer not found in SurfaceGui"); return nil end
+            print("Dice Chest timer found!")
+            return timer
         end,
         Hauteur = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("dice-rift")
-            if rift and rift:FindFirstChild("Decoration") then
-                return rift.Decoration.Position.Y
-            end
-            return nil
+            print("Checking Dice Chest height...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found for height"); return nil end
+            local rift = rifts:FindFirstChild("dice-rift")
+            if not rift then print("dice-rift not found for height"); return nil end
+            local decoration = rift:FindFirstChild("Decoration")
+            if not decoration then print("Decoration not found for height"); return nil end
+            print("Dice Chest height found: " .. tostring(decoration.Position.Y))
+            return decoration.Position.Y
         end
     },
     RAINBOW_EGG = {
         Chemin = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("rainbow-egg")
-            if rift and rift:FindFirstChild("Decoration") then
-                return rift.Decoration
-            end
-            return nil
+            print("Checking Rainbow Egg path...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found in Workspace.Rendered"); return nil end
+            local rift = rifts:FindFirstChild("rainbow-egg")
+            if not rift then print("rainbow-egg not found in Rifts"); return nil end
+            local decoration = rift:FindFirstChild("Decoration")
+            if not decoration then print("Decoration not found in rainbow-egg"); return nil end
+            print("Rainbow Egg path found!")
+            return decoration
         end,
         Minuteur = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("rainbow-egg")
-            if rift and rift:FindFirstChild("Display") then
-                return rift.Display.SurfaceGui.Timer
-            end
-            return nil
+            print("Checking Rainbow Egg timer...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found for timer"); return nil end
+            local rift = rifts:FindFirstChild("rainbow-egg")
+            if not rift then print("rainbow-egg not found for timer"); return nil end
+            local display = rift:FindFirstChild("Display")
+            if not display then print("Display not found in rainbow-egg"); return nil end
+            local surfaceGui = display:FindFirstChild("SurfaceGui")
+            if not surfaceGui then print("SurfaceGui not found in Display"); return nil end
+            local timer = surfaceGui:FindFirstChild("Timer")
+            if not timer then print("Timer not found in SurfaceGui"); return nil end
+            print("Rainbow Egg timer found!")
+            return timer
         end,
         Chance = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("rainbow-egg")
-            if rift and rift:FindFirstChild("Display") then
-                return rift.Display.SurfaceGui.Icon.Luck
-            end
-            return nil
+            print("Checking Rainbow Egg luck...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found for luck"); return nil end
+            local rift = rifts:FindFirstChild("rainbow-egg")
+            if not rift then print("rainbow-egg not found for luck"); return nil end
+            local display = rift:FindFirstChild("Display")
+            if not display then print("Display not found for luck"); return nil end
+            local surfaceGui = display:FindFirstChild("SurfaceGui")
+            if not surfaceGui then print("SurfaceGui not found for luck"); return nil end
+            local icon = surfaceGui:FindFirstChild("Icon")
+            if not icon then print("Icon not found in SurfaceGui"); return nil end
+            local luck = icon:FindFirstChild("Luck")
+            if not luck then print("Luck not found in Icon"); return nil end
+            print("Rainbow Egg luck found: " .. tostring(luck.Text))
+            return luck
         end,
         Hauteur = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("rainbow-egg")
-            if rift and rift:FindFirstChild("Decoration") then
-                return rift.Decoration.Position.Y
-            end
-            return nil
+            print("Checking Rainbow Egg height...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found for height"); return nil end
+            local rift = rifts:FindFirstChild("rainbow-egg")
+            if not rift then print("rainbow-egg not found for height"); return nil end
+            local decoration = rift:FindFirstChild("Decoration")
+            if not decoration then print("Decoration not found for height"); return nil end
+            print("Rainbow Egg height found: " .. tostring(decoration.Position.Y))
+            return decoration.Position.Y
         end
     },
     VOID_EGG = {
         Chemin = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("void-egg")
-            if rift and rift:FindFirstChild("Decoration") then
-                return rift.Decoration
-            end
-            return nil
+            print("Checking Void Egg path...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found in Workspace.Rendered"); return nil end
+            local rift = rifts:FindFirstChild("void-egg")
+            if not rift then print("void-egg not found in Rifts"); return nil end
+            local decoration = rift:FindFirstChild("Decoration")
+            if not decoration then print("Decoration not found in void-egg"); return nil end
+            print("Void Egg path found!")
+            return decoration
         end,
         Minuteur = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("void-egg")
-            if rift and rift:FindFirstChild("Display") then
-                return rift.Display.SurfaceGui.Timer
-            end
-            return nil
+            print("Checking Void Egg timer...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found for timer"); return nil end
+            local rift = rifts:FindFirstChild("void-egg")
+            if not rift then print("void-egg not found for timer"); return nil end
+            local display = rift:FindFirstChild("Display")
+            if not display then print("Display not found in void-egg"); return nil end
+            local surfaceGui = display:FindFirstChild("SurfaceGui")
+            if not surfaceGui then print("SurfaceGui not found in Display"); return nil end
+            local timer = surfaceGui:FindFirstChild("Timer")
+            if not timer then print("Timer not found in SurfaceGui"); return nil end
+            print("Void Egg timer found!")
+            return timer
         end,
         Chance = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("void-egg")
-            if rift and rift:FindFirstChild("Display") then
-                return rift.Display.SurfaceGui.Icon.Luck
-            end
-            return nil
+            print("Checking Void Egg luck...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found for luck"); return nil end
+            local rift = rifts:FindFirstChild("void-egg")
+            if not rift then print("void-egg not found for luck"); return nil end
+            local display = rift:FindFirstChild("Display")
+            if not display then print("Display not found for luck"); return nil end
+            local surfaceGui = display:FindFirstChild("SurfaceGui")
+            if not surfaceGui then print("SurfaceGui not found for luck"); return nil end
+            local icon = surfaceGui:FindFirstChild("Icon")
+            if not icon then print("Icon not found in SurfaceGui"); return nil end
+            local luck = icon:FindFirstChild("Luck")
+            if not luck then print("Luck not found in Icon"); return nil end
+            print("Void Egg luck found: " .. tostring(luck.Text))
+            return luck
         end,
         Hauteur = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("void-egg")
-            if rift and rift:FindFirstChild("Decoration") then
-                return rift.Decoration.Position.Y
-            end
-            return nil
+            print("Checking Void Egg height...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found for height"); return nil end
+            local rift = rifts:FindFirstChild("void-egg")
+            if not rift then print("void-egg not found for height"); return nil end
+            local decoration = rift:FindFirstChild("Decoration")
+            if not decoration then print("Decoration not found for height"); return nil end
+            print("Void Egg height found: " .. tostring(decoration.Position.Y))
+            return decoration.Position.Y
         end
     },
     NIGHTMARE_EGG = {
         Chemin = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("nightmare-egg")
-            if rift and rift:FindFirstChild("Decoration") then
-                return rift.Decoration
-            end
-            return nil
+            print("Checking Nightmare Egg path...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found in Workspace.Rendered"); return nil end
+            local rift = rifts:FindFirstChild("nightmare-egg")
+            if not rift then print("nightmare-egg not found in Rifts"); return nil end
+            local decoration = rift:FindFirstChild("Decoration")
+            if not decoration then print("Decoration not found in nightmare-egg"); return nil end
+            print("Nightmare Egg path found!")
+            return decoration
         end,
         Minuteur = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("nightmare-egg")
-            if rift and rift:FindFirstChild("Display") then
-                return rift.Display.SurfaceGui.Timer
-            end
-            return nil
+            print("Checking Nightmare Egg timer...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found for timer"); return nil end
+            local rift = rifts:FindFirstChild("nightmare-egg")
+            if not rift then print("nightmare-egg not found for timer"); return nil end
+            local display = rift:FindFirstChild("Display")
+            if not display then print("Display not found in nightmare-egg"); return nil end
+            local surfaceGui = display:FindFirstChild("SurfaceGui")
+            if not surfaceGui then print("SurfaceGui not found in Display"); return nil end
+            local timer = surfaceGui:FindFirstChild("Timer")
+            if not timer then print("Timer not found in SurfaceGui"); return nil end
+            print("Nightmare Egg timer found!")
+            return timer
         end,
         Chance = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("nightmare-egg")
-            if rift and rift:FindFirstChild("Display") then
-                return rift.Display.SurfaceGui.Icon.Luck
-            end
-            return nil
+            print("Checking Nightmare Egg luck...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found for luck"); return nil end
+            local rift = rifts:FindFirstChild("nightmare-egg")
+            if not rift then print("nightmare-egg not found for luck"); return nil end
+            local display = rift:FindFirstChild("Display")
+            if not display then print("Display not found for luck"); return nil end
+            local surfaceGui = display:FindFirstChild("SurfaceGui")
+            if not surfaceGui then print("SurfaceGui not found for luck"); return nil end
+            local icon = surfaceGui:FindFirstChild("Icon")
+            if not icon then print("Icon not found in SurfaceGui"); return nil end
+            local luck = icon:FindFirstChild("Luck")
+            if not luck then print("Luck not found in Icon"); return nil end
+            print("Nightmare Egg luck found: " .. tostring(luck.Text))
+            return luck
         end,
         Hauteur = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("nightmare-egg")
-            if rift and rift:FindFirstChild("Decoration") then
-                return rift.Decoration.Position.Y
-            end
-            return nil
+            print("Checking Nightmare Egg height...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found for height"); return nil end
+            local rift = rifts:FindFirstChild("nightmare-egg")
+            if not rift then print("nightmare-egg not found for height"); return nil end
+            local decoration = rift:FindFirstChild("Decoration")
+            if not decoration then print("Decoration not found for height"); return nil end
+            print("Nightmare Egg height found: " .. tostring(decoration.Position.Y))
+            return decoration.Position.Y
         end
     },
     CYBER_EGG = {
         Chemin = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("cyber-egg")
-            if rift and rift:FindFirstChild("Decoration") then
-                return rift.Decoration
-            end
-            return nil
+            print("Checking Cyber Egg path...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found in Workspace.Rendered"); return nil end
+            local rift = rifts:FindFirstChild("cyber-egg")
+            if not rift then print("cyber-egg not found in Rifts"); return nil end
+            local decoration = rift:FindFirstChild("Decoration")
+            if not decoration then print("Decoration not found in cyber-egg"); return nil end
+            print("Cyber Egg path found!")
+            return decoration
         end,
         Minuteur = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("cyber-egg")
-            if rift and rift:FindFirstChild("Display") then
-                return rift.Display.SurfaceGui.Timer
-            end
-            return nil
+            print("Checking Cyber Egg timer...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found for timer"); return nil end
+            local rift = rifts:FindFirstChild("cyber-egg")
+            if not rift then print("cyber-egg not found for timer"); return nil end
+            local display = rift:FindFirstChild("Display")
+            if not display then print("Display not found in cyber-egg"); return nil end
+            local surfaceGui = display:FindFirstChild("SurfaceGui")
+            if not surfaceGui then print("SurfaceGui not found in Display"); return nil end
+            local timer = surfaceGui:FindFirstChild("Timer")
+            if not timer then print("Timer not found in SurfaceGui"); return nil end
+            print("Cyber Egg timer found!")
+            return timer
         end,
         Chance = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("cyber-egg")
-            if rift and rift:FindFirstChild("Display") then
-                return rift.Display.SurfaceGui.Icon.Luck
-            end
-            return nil
+            print("Checking Cyber Egg luck...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found for luck"); return nil end
+            local rift = rifts:FindFirstChild("cyber-egg")
+            if not rift then print("cyber-egg not found for luck"); return nil end
+            local display = rift:FindFirstChild("Display")
+            if not display then print("Display not found for luck"); return nil end
+            local surfaceGui = display:FindFirstChild("SurfaceGui")
+            if not surfaceGui then print("SurfaceGui not found for luck"); return nil end
+            local icon = surfaceGui:FindFirstChild("Icon")
+            if not icon then print("Icon not found in SurfaceGui"); return nil end
+            local luck = icon:FindFirstChild("Luck")
+            if not luck then print("Luck not found in Icon"); return nil end
+            print("Cyber Egg luck found: " .. tostring(luck.Text))
+            return luck
         end,
         Hauteur = function()
-            local rift = Workspace.Rendered.Rifts:FindFirstChild("cyber-egg")
-            if rift and rift:FindFirstChild("Decoration") then
-                return rift.Decoration.Position.Y
-            end
-            return nil
+            print("Checking Cyber Egg height...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found for height"); return nil end
+            local rift = rifts:FindFirstChild("cyber-egg")
+            if not rift then print("cyber-egg not found for height"); return nil end
+            local decoration = rift:FindFirstChild("Decoration")
+            if not decoration then print("Decoration not found for height"); return nil end
+            print("Cyber Egg height found: " .. tostring(decoration.Position.Y))
+            return decoration.Position.Y
         end
     }
 }
@@ -318,10 +472,13 @@ local function verifierFailles()
     for nomFaille, donneesFaille in pairs(CHEMINS_FAILLES) do
         local configFaille = CONFIG.FAILES[nomFaille]
         if configFaille and configFaille.ACTIVE then
+            print("Verifying " .. nomFaille .. "...")
             local chemin = donneesFaille.Chemin()
             if chemin and chemin.Parent then
+                print(nomFaille .. " path exists!")
                 local minuteur = donneesFaille.Minuteur()
                 if minuteur then
+                    print(nomFaille .. " timer exists!")
                     local texteMinuteur = minuteur.Text or "N/A"
                     local chance = nil
                     if donneesFaille.Chance then
@@ -330,11 +487,20 @@ local function verifierFailles()
                             local texteChance = (chanceObj.Text or ""):upper()
                             if table.find(CONFIG.SNIPE_LUCK, texteChance) then
                                 chance = texteChance
+                                print(nomFaille .. " luck matches: " .. texteChance)
+                            else
+                                print(nomFaille .. " luck does not match: " .. texteChance)
                             end
+                        else
+                            print(nomFaille .. " luck object not found")
                         end
                     end
                     envoyerWebhook(nomFaille, texteMinuteur, chance, configFaille.WEBHOOK_URL)
+                else
+                    print(nomFaille .. " timer not found")
                 end
+            else
+                print(nomFaille .. " path does not exist")
             end
         end
     end
@@ -346,10 +512,13 @@ local function initialScan()
     for nomFaille, donneesFaille in pairs(CHEMINS_FAILLES) do
         local configFaille = CONFIG.FAILES[nomFaille]
         if configFaille and configFaille.ACTIVE then
+            print("Initial scan for " .. nomFaille .. "...")
             local chemin = donneesFaille.Chemin()
             if chemin and chemin.Parent then
+                print(nomFaille .. " path exists in initial scan!")
                 local minuteur = donneesFaille.Minuteur()
                 if minuteur then
+                    print(nomFaille .. " timer exists in initial scan!")
                     local texteMinuteur = minuteur.Text or "N/A"
                     local chance = nil
                     if donneesFaille.Chance then
@@ -358,12 +527,21 @@ local function initialScan()
                             local texteChance = (chanceObj.Text or ""):upper()
                             if table.find(CONFIG.SNIPE_LUCK, texteChance) then
                                 chance = texteChance
+                                print(nomFaille .. " luck matches in initial scan: " .. texteChance)
+                            else
+                                print(nomFaille .. " luck does not match in initial scan: " .. texteChance)
                             end
+                        else
+                            print(nomFaille .. " luck object not found in initial scan")
                         end
                     end
                     envoyerWebhook(nomFaille, texteMinuteur, chance, configFaille.WEBHOOK_URL)
                     print("Initial detection of " .. nomFaille .. " with time: " .. texteMinuteur)
+                else
+                    print(nomFaille .. " timer not found in initial scan")
                 end
+            else
+                print(nomFaille .. " path does not exist in initial scan")
             end
         end
     end
