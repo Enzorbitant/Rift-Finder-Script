@@ -510,7 +510,7 @@ local CHEMINS_FAILLES = {
     }
 }
 
--- Fonction pour envoyer un webhook
+-- Fonction pour envoyer un webhook (with exploit-specific HTTP and logging fallback)
 local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
     print("Attempting to send webhook for " .. nomFaille .. " to " .. tostring(urlWebhook))
     local multiplicateur = chance or "Unknown"
@@ -549,25 +549,74 @@ local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
     local encodedPayload = HttpService:JSONEncode(payload)
     print("Webhook payload: " .. encodedPayload)
 
-    local succes, erreur = pcall(function()
-        if HttpService.PostAsync then
-            local response = HttpService:PostAsync(cibleWebhook, encodedPayload, Enum.HttpContentType.ApplicationJson)
-            print("Webhook response: " .. tostring(response))
-        elseif HttpService.request then
-            local response = HttpService:request({
+    -- Try exploit-specific HTTP functions first
+    local succes = false
+    local erreur = nil
+
+    -- Attempt 1: syn.request (Synapse-specific)
+    if syn and syn.request then
+        print("Trying syn.request...")
+        succes, erreur = pcall(function()
+            local response = syn.request({
                 Url = cibleWebhook,
                 Method = "POST",
                 Headers = {["Content-Type"] = "application/json"},
                 Body = encodedPayload
             })
-            print("Webhook response: " .. tostring(response.Success) .. " - " .. tostring(response.StatusCode) .. " - " .. tostring(response.Body))
-        else
-            error("Webhook sending not supported by this executor")
-        end
-    end)
-    
+            print("syn.request response: " .. tostring(response.Success) .. " - " .. tostring(response.StatusCode) .. " - " .. tostring(response.Body))
+            if not response.Success then
+                error("syn.request failed with status " .. tostring(response.StatusCode))
+            end
+        end)
+    end
+
+    -- Attempt 2: http_request (generic exploit function)
+    if not succes and http_request then
+        print("Trying http_request...")
+        succes, erreur = pcall(function()
+            local response = http_request({
+                Url = cibleWebhook,
+                Method = "POST",
+                Headers = {["Content-Type"] = "application/json"},
+                Body = encodedPayload
+            })
+            print("http_request response: " .. tostring(response.Success) .. " - " .. tostring(response.StatusCode) .. " - " .. tostring(response.Body))
+            if not response.Success then
+                error("http_request failed with status " .. tostring(response.StatusCode))
+            end
+        end)
+    end
+
+    -- Attempt 3: HttpService (will likely fail, but let's try for completeness)
+    if not succes then
+        print("Trying HttpService...")
+        succes, erreur = pcall(function()
+            if HttpService.PostAsync then
+                local response = HttpService:PostAsync(cibleWebhook, encodedPayload, Enum.HttpContentType.ApplicationJson)
+                print("HttpService response: " .. tostring(response))
+            elseif HttpService.request then
+                local response = HttpService:request({
+                    Url = cibleWebhook,
+                    Method = "POST",
+                    Headers = {["Content-Type"] = "application/json"},
+                    Body = encodedPayload
+                })
+                print("HttpService response: " .. tostring(response.Success) .. " - " .. tostring(response.StatusCode) .. " - " .. tostring(response.Body))
+                if not response.Success then
+                    error("HttpService failed with status " .. tostring(response.StatusCode))
+                end
+            else
+                error("HttpService not supported by this executor")
+            end
+        end)
+    end
+
+    -- If all attempts fail, log the payload for manual sending
     if not succes then
         warn("Échec de l'envoi du webhook pour " .. nomFaille .. " : " .. tostring(erreur))
+        print("Since direct HTTP failed, here’s the payload to send manually to " .. cibleWebhook .. ":")
+        print(encodedPayload)
+        print("Copy the above payload, go to your webhook URL, and send it via a tool like Postman or a browser extension.")
     else
         print("Webhook sent for " .. nomFaille .. " successfully!")
     end
@@ -668,7 +717,7 @@ initialScan()
 -- Boucle principale (continuous scanning)
 while true do
     verifierFailles()
-    wait(CONFIG.INTERVALLE_VERIFICATION or 1) -- Reduced to 1 second for faster detection
+    wait(CONFIG.INTERVALLE_VERIFICATION or 1) -- 1 second for faster detection
     
     -- Changer de serveur après l'intervalle
     if os.time() % (CONFIG.INTERVALLE_CHANGEMENT_SERVEUR or 300) < (CONFIG.INTERVALLE_VERIFICATION or 1) then
