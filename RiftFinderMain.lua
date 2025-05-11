@@ -14,7 +14,6 @@ local Players = game:GetService("Players") or error("Players not found")
 -- Charger la configuration
 local CONFIG = getgenv().RiftFindersConfig
 local cle_script = CONFIG.CLE_SCRIPT
-print("Main script loaded with key: " .. tostring(cle_script))
 
 -- Système de clés
 local CLES_VALABLES = {
@@ -32,11 +31,10 @@ local CLES_VALABLES = {
 
 -- Vérification de la clé
 local function verifierCle()
-    print("Starting key verification...")
     local userId = Players.LocalPlayer and Players.LocalPlayer.UserId or 0
     local donneesCle = CLES_VALABLES[cle_script]
     if not donneesCle then
-        error("Clé invalide. Vérifiez votre clé dans RiftFindersConfig.lua.")
+        Players.LocalPlayer:Kick("Clé Invalide")
     end
     if not donneesCle.Comptes[userId] then
         donneesCle.Comptes[userId] = true
@@ -45,10 +43,9 @@ local function verifierCle()
             totalComptes = totalComptes + 1
         end
         if totalComptes > 90 then
-            error("Limite de 90 comptes atteinte pour cette clé.")
+            Players.LocalPlayer:Kick("Limite de 90 comptes atteinte pour cette clé.")
         end
     end
-    print("Key verification completed!")
 end
 
 verifierCle()
