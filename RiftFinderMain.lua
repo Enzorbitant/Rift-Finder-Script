@@ -9,7 +9,6 @@ local HttpService = (game and game:GetService("HttpService")) or (syn and syn.re
 local TeleportService = (game and game:GetService("TeleportService")) or error("TeleportService not found")
 local Workspace = (game and game:GetService("Workspace")) or error("Workspace not found")
 local Players = (game and game:GetService("Players")) or error("Players not found")
-local RbxAnalyticsService = (game and game:GetService("RbxAnalyticsService")) or {GetClientId = function() return "fallback_hwid" end}
 
 -- Charger la configuration
 local CONFIG = getgenv().RiftFindersConfig
@@ -17,21 +16,21 @@ local cle_script = CONFIG.CLE_SCRIPT
 
 -- Système de clés
 local CLES_VALABLES = {
-    ["XK3L9-VT72D-WP5QZ-8MNC4-RY1TB"] = {HWID = nil, Comptes = {}},
-    ["92JFQ-MCN28-WQ9DK-LZX18-YT2RF"] = {HWID = nil, Comptes = {}},
-    ["LMN2X-Z6P7D-92JKL-MC3W8-RTYQ1"] = {HWID = nil, Comptes = {}},
-    ["FJQ93-MZKLP-WR7X2-CN1VD-80TYZ"] = {HWID = nil, Comptes = {}},
-    ["PQ8WN-RMCL2-ZX10B-YKFQ9-71EDP"] = {HWID = nil, Comptes = {}},
-    ["N3VXC-K8J2W-Q4PLD-9TZQM-YF7AR"] = {HWID = nil, Comptes = {}},
-    ["WRX8P-2TQL9-ZNM4D-JCQ71-YF56B"] = {HWID = nil, Comptes = {}},
-    ["B7MQL-WPQZ9-TY1ED-KXMC2-VQ03N"] = {HWID = nil, Comptes = {}},
-    ["KCX12-WFQMB-R79DZ-LPXT3-NQ84E"] = {HWID = nil, Comptes = {}},
-    ["TY7CZ-81MNP-XKWQ2-FQ90B-LMRD4"] = {HWID = nil, Comptes = {}}
+    ["XK3L9-VT72D-WP5QZ-8MNC4-RY1TB"] = {HWID = "fallback_hwid", Comptes = {}},
+    ["92JFQ-MCN28-WQ9DK-LZX18-YT2RF"] = {HWID = "fallback_hwid", Comptes = {}},
+    ["LMN2X-Z6P7D-92JKL-MC3W8-RTYQ1"] = {HWID = "fallback_hwid", Comptes = {}},
+    ["FJQ93-MZKLP-WR7X2-CN1VD-80TYZ"] = {HWID = "fallback_hwid", Comptes = {}},
+    ["PQ8WN-RMCL2-ZX10B-YKFQ9-71EDP"] = {HWID = "fallback_hwid", Comptes = {}},
+    ["N3VXC-K8J2W-Q4PLD-9TZQM-YF7AR"] = {HWID = "fallback_hwid", Comptes = {}},
+    ["WRX8P-2TQL9-ZNM4D-JCQ71-YF56B"] = {HWID = "fallback_hwid", Comptes = {}},
+    ["B7MQL-WPQZ9-TY1ED-KXMC2-VQ03N"] = {HWID = "fallback_hwid", Comptes = {}},
+    ["KCX12-WFQMB-R79DZ-LPXT3-NQ84E"] = {HWID = "fallback_hwid", Comptes = {}},
+    ["TY7CZ-81MNP-XKWQ2-FQ90B-LMRD4"] = {HWID = "fallback_hwid", Comptes = {}}
 }
 
 -- Vérification de la clé
 local function verifierCle()
-    local hwid = RbxAnalyticsService.GetClientId and RbxAnalyticsService:GetClientId() or "fallback_hwid"
+    print("Starting key verification...")
     local userId = Players.LocalPlayer and Players.LocalPlayer.UserId or 0
     local donneesCle = CLES_VALABLES[cle_script]
 
@@ -39,13 +38,8 @@ local function verifierCle()
         error("Clé invalide. Exécution du script arrêtée.")
     end
 
-    if not donneesCle.HWID then
-        donneesCle.HWID = hwid
-    end
-
-    if donneesCle.HWID ~= hwid then
-        error("Clé liée à un autre HWID. Exécution du script arrêtée.")
-    end
+    -- Skip HWID check since executors are choking on RbxAnalyticsService
+    print("Key HWID: " .. tostring(donneesCle.HWID))
 
     if not donneesCle.Comptes[userId] then
         donneesCle.Comptes[userId] = true
@@ -57,6 +51,7 @@ local function verifierCle()
             error("Limite de 90 comptes atteinte pour cette clé. Exécution du script arrêtée.")
         end
     end
+    print("Key verification completed!")
 end
 
 -- Exécuter la vérification de la clé
@@ -260,8 +255,12 @@ local CHEMINS_FAILLES = {
 
 -- Fonction pour envoyer un webhook
 local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
+    print("Attempting to send webhook for " .. nomFaille)
     local hauteur = CHEMINS_FAILLES[nomFaille].Hauteur()
-    if not hauteur then return end
+    if not hauteur then
+        print("Failed to get hauteur for " .. nomFaille)
+        return
+    end
     local multiplicateur = chance or "Unknown"
     local joueurs = tostring(#Players:GetPlayers()) .. "/" .. tostring(Players.MaxPlayers or 100)
     local jobId = game.JobId or "unknown_jobid"
@@ -315,6 +314,7 @@ end
 
 -- Fonction pour vérifier les failles
 local function verifierFailles()
+    print("Checking for rifts...")
     for nomFaille, donneesFaille in pairs(CHEMINS_FAILLES) do
         local configFaille = CONFIG.FAILES[nomFaille]
         if configFaille and configFaille.ACTIVE then
