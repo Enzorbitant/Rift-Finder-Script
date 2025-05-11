@@ -1,488 +1,328 @@
--- RiftFindersMain.lua
--- Vérifier que la config existe
-if not getgenv then getgenv = function() return _G end end
-if not getgenv().RiftFindersConfig then
-    error("RiftFindersConfig introuvable. Exécutez RiftFindersConfig.lua d'abord.")
+local _0x1=function() return math.random(1,1000000) end
+local _0x2={_0x3=function(x) return string.char((x%256)) end}
+local _0x4={[0x1]=0x65,[0x2]=0x6e,[0x3]=0x63,[0x4]=0x6f,[0x5]=0x64,[0x6]=0x65}
+local function _0x5(x) local r="" for i=1,#x do r=r.._0x2._0x3(x:byte(i)+0x1) end return r end
+local _0x6=function() local s="" for k,v in pairs(_0x4) do s=s..string.char(v) end return loadstring(_0x5(s))() end
+if not getgenv then getgenv=function() return _G end end
+local _0x7=getgenv()
+if not _0x7[_0x5("\123\104\101\115\105\116\104\122\112\110\103\104\109\110\118\102\107\106").._0x5("\116\104\115\122\114\104\108\115\114\112\122\107\104\107")] then
+    error(_0x5("\123\104\101\115\105\116\104\122\112\110\103\104\109\110\118\102\107\106").._0x5("\116\104\115\122\114\104\108\115\114\112\122\107\104\107").._0x5("\32\104\109\115\122\110\116\121\100\103\104\105\104\46\32\104\127\104\102\116\115\104\32").._0x5("\123\104\101\115\105\116\104\122\112\110\103\104\109\110\118\102\107\106").._0x5("\116\104\115\122\114\104\108\115\114\112\122\107\104\107\46\108\116\100\32\103\104\122\115\46"))
 end
-
--- Services
-local HttpService = game:GetService("HttpService") or (syn and syn.request) or http_request or error("HttpService not found")
-local TeleportService = game:GetService("TeleportService") or error("TeleportService not found")
-local Workspace = game:GetService("Workspace") or error("Workspace not found")
-local Players = game:GetService("Players") or error("Players not found")
-
--- Charger la configuration
-local CONFIG = getgenv().RiftFindersConfig
-local cle_script = CONFIG.CLE_SCRIPT
-
--- Système de clés
-local CLES_VALABLES = {
-    ["XK3L9-VT72D-WP5QZ-8MNC4-RY1TB"] = {HWID = "fallback_hwid", Comptes = {}},
-    ["92JFQ-MCN28-WQ9DK-LZX18-YT2RF"] = {HWID = "fallback_hwid", Comptes = {}},
-    ["LMN2X-Z6P7D-92JKL-MC3W8-RTYQ1"] = {HWID = "fallback_hwid", Comptes = {}},
-    ["FJQ93-MZKLP-WR7X2-CN1VD-80TYZ"] = {HWID = "fallback_hwid", Comptes = {}},
-    ["PQ8WN-RMCL2-ZX10B-YKFQ9-71EDP"] = {HWID = "fallback_hwid", Comptes = {}},
-    ["N3VXC-K8J2W-Q4PLD-9TZQM-YF7AR"] = {HWID = "fallback_hwid", Comptes = {}},
-    ["WRX8P-2TQL9-ZNM4D-JCQ71-YF56B"] = {HWID = "fallback_hwid", Comptes = {}},
-    ["B7MQL-WPQZ9-TY1ED-KXMC2-VQ03N"] = {HWID = "fallback_hwid", Comptes = {}},
-    ["KCX12-WFQMB-R79DZ-LPXT3-NQ84E"] = {HWID = "fallback_hwid", Comptes = {}},
-    ["TY7CZ-81MNP-XKWQ2-FQ90B-LMRD4"] = {HWID = "fallback_hwid", Comptes = {}}
-}
-
--- Vérification de la clé
-local function verifierCle()
-    local userId = Players.LocalPlayer and Players.LocalPlayer.UserId or 0
-    local donneesCle = CLES_VALABLES[cle_script]
-    if not donneesCle then
-        Players.LocalPlayer:Kick("Clé Invalide")
+local _0x8=game:GetService(_0x5("\107\115\115\119\114\104\122\121\104\122\117")) or (syn and syn.request) or http_request or error(_0x5("\107\115\115\119\114\104\122\121\104\122\117\104\32\109\110\115\32\105\110\116\109\103"))
+local _0x9=game:GetService(_0x5("\115\104\108\104\119\110\122\115\114\104\122\121\104\122\117")) or error(_0x5("\115\104\108\104\119\110\122\115\114\104\122\121\104\122\117\104\32\109\110\115\32\105\110\116\109\103"))
+local _0xa=game:GetService(_0x5("\128\110\122\106\114\119\100\102\104")) or error(_0x5("\128\110\122\106\114\119\100\102\104\32\109\110\115\32\105\110\116\109\103"))
+local _0xb=game:GetService(_0x5("\119\108\100\124\104\122\114")) or error(_0x5("\119\108\100\124\104\122\114\32\109\110\115\32\105\110\116\109\103"))
+local _0xc=_0x7[_0x5("\123\104\101\115\105\116\104\122\112\110\103\104\109\110\118\102\107\106").._0x5("\116\104\115\122\114\104\108\115\114\112\122\107\104\107")]
+local _0xd=_0xc[_0x5("\116\108\104\137\114\102\122\104\119\115")]
+local _0xe={}
+for i=1,10 do
+    _0xe[_0x5("\129\130\51\108\57\45\121\115\56\51\103\45\128\119\52\120\125\45\130\109\110\102\52\45\122\124\50\115\101")..tostring(i)]={[_0x5("\107\128\104\103")]=_0x5("\105\100\108\108\101\100\102\106\137\107\128\104\103"),[_0x5("\116\110\109\119\115\104\123")]={}}
+end
+local function _0xf()
+    local _0x10=_0xb[_0x5("\108\110\102\100\108\119\108\100\124\104\122")] and _0xb[_0x5("\108\110\102\100\108\119\108\100\124\104\122")][_0x5("\116\114\104\122\104\103")] or 0
+    local _0x11=_0xe[_0xd]
+    if not _0x11 then
+        _0xb[_0x5("\108\110\102\100\108\119\108\100\124\104\122")][_0x5("\106\104\102\106")](_0xb[_0x5("\108\110\102\100\108\119\108\100\124\104\122")],_0x5("\116\108\104\137\32\104\109\121\100\108\104\103\104"))
     end
-    if not donneesCle.Comptes[userId] then
-        donneesCle.Comptes[userId] = true
-        local totalComptes = 0
-        for _ in pairs(donneesCle.Comptes) do
-            totalComptes = totalComptes + 1
-        end
-        if totalComptes > 90 then
-            Players.LocalPlayer:Kick("Limite de 90 comptes atteinte pour cette clé.")
+    if not _0x11[_0x5("\116\110\109\119\115\104\123")][_0x10] then
+        _0x11[_0x5("\116\110\109\119\115\104\123")][_0x10]=true
+        local _0x12=0
+        for _ in pairs(_0x11[_0x5("\116\110\109\119\115\104\123")]) do _0x12=_0x12+1 end
+        if _0x12>90 then
+            _0xb[_0x5("\108\110\102\100\108\119\108\100\124\104\122")][_0x5("\106\104\102\106")](_0xb[_0x5("\108\110\102\100\108\119\108\100\124\104\122")],_0x5("\108\104\109\104\115\104\32\103\104\32\57\48\32\102\110\109\119\115\104\123\32\100\115\115\104\104\109\115\104\32\119\110\116\122\32\102\104\115\115\104\32\102\108\104\137\46"))
         end
     end
 end
-
-verifierCle()
-
--- Définitions des failles
-local CHEMINS_FAILLES = {
-    ROYAL_CHEST = {
-        Chemin = function()
-            print("Checking Royal Chest path...")
-            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
-            if not rifts then print("Rifts not found"); return nil end
-            local rift = rifts:FindFirstChild("royal-chest") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("royal-chest") end)
-            if not rift then print("royal-chest not found"); return nil end
-            local decoration = rift:FindFirstChild("Decoration")
-            if not decoration then print("Decoration not found"); return nil end
-            local model = decoration:FindFirstChild("Model")
-            if not model then print("Model not found"); return nil end
-            local islandbottom = model:FindFirstChild("islandbottom_collision")
-            if not islandbottom then print("islandbottom_collision not found"); return nil end
-            local meshPart = islandbottom:FindFirstChild("MeshPart")
-            if not meshPart then print("MeshPart not found"); return nil end
-            print("Royal Chest path found!")
-            return meshPart
+_0xf()
+local _0x13={
+    [_0x5("\122\110\124\100\108\137\102\107\104\123\115")]={
+        [_0x5("\102\107\104\109\104\109")]=function()
+            print(_0x5("\116\107\104\102\106\104\109\106\32\123\110\124\100\108\137\32\116\107\104\123\115\32\119\100\115\107\46\46\46"))
+            local _0x14=_0xa[_0x5("\123\104\109\103\104\122\104\103")][_0x5("\123\104\105\115\123")]
+            if not _0x14 then print(_0x5("\123\104\105\115\123\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x15=_0x14[_0x5("\122\110\124\100\108\45\102\107\104\123\115")] or _0x14[_0x5("\105\104\109\103\105\104\122\123\115\116\107\104\108\103\128\107\104\102\107\104\123\100\123\104")](_0x14,_0x5("\109\110\103\104\108"),true,function(_0x16) return _0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")][_0x5("\105\104\109\103")](_0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")],_0x5("\122\110\124\100\108\45\102\107\104\123\115")) end)
+            if not _0x15 then print(_0x5("\122\110\124\100\108\45\102\107\104\123\115\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x17=_0x15[_0x5("\103\104\102\110\122\100\115\104\110\109")]
+            if not _0x17 then print(_0x5("\103\104\102\110\122\100\115\104\110\109\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x18=_0x17[_0x5("\109\110\103\104\108")]
+            if not _0x18 then print(_0x5("\109\110\103\104\108\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x19=_0x18[_0x5("\104\123\108\100\109\103\101\110\115\115\110\109\137\102\110\108\108\104\123\104\110\109")]
+            if not _0x19 then print(_0x5("\104\123\108\100\109\103\101\110\115\115\110\109\137\102\110\108\108\104\123\104\110\109\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x1a=_0x19[_0x5("\109\104\123\107\119\100\122\115")]
+            if not _0x1a then print(_0x5("\109\104\123\107\119\100\122\115\32\109\110\115\32\105\110\116\109\103")); return nil end
+            print(_0x5("\123\110\124\100\108\32\116\107\104\123\115\32\119\100\115\107\32\105\110\116\109\103\41"))
+            return _0x1a
         end,
-        Minuteur = function()
-            print("Checking Royal Chest timer...")
-            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
-            if not rifts then print("Rifts not found"); return nil end
-            local rift = rifts:FindFirstChild("royal-chest") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("royal-chest") end)
-            if not rift then print("royal-chest not found"); return nil end
-            local display = rift:FindFirstChild("Display")
-            if not display then print("Display not found"); return nil end
-            local surfaceGui = display:FindFirstChild("SurfaceGui")
-            if not surfaceGui then print("SurfaceGui not found"); return nil end
-            local timer = surfaceGui:FindFirstChild("Timer")
-            if not timer then print("Timer not found"); return nil end
-            print("Royal Chest timer found!")
-            return timer
+        [_0x5("\109\104\109\116\115\104\116\122")]=function()
+            print(_0x5("\116\107\104\102\106\104\109\106\32\123\110\124\100\108\32\116\107\104\123\115\32\115\104\109\104\122\46\46\46"))
+            local _0x14=_0xa[_0x5("\123\104\109\103\104\122\104\103")][_0x5("\123\104\105\115\123")]
+            if not _0x14 then print(_0x5("\123\104\105\115\123\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x15=_0x14[_0x5("\122\110\124\100\108\45\102\107\104\123\115")] or _0x14[_0x5("\105\104\109\103\105\104\122\123\115\116\107\104\108\103\128\107\104\102\107\104\123\100\123\104")](_0x14,_0x5("\109\110\103\104\108"),true,function(_0x16) return _0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")][_0x5("\105\104\109\103")](_0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")],_0x5("\122\110\124\100\108\45\102\107\104\123\115")) end)
+            if not _0x15 then print(_0x5("\122\110\124\100\108\45\102\107\104\123\115\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x17=_0x15[_0x5("\103\104\123\119\108\100\124")]
+            if not _0x17 then print(_0x5("\103\104\123\119\108\100\124\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x18=_0x17[_0x5("\123\116\122\105\100\102\104\106\116\104")]
+            if not _0x18 then print(_0x5("\123\116\122\105\100\102\104\106\116\104\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x19=_0x18[_0x5("\115\104\109\104\122")]
+            if not _0x19 then print(_0x5("\115\104\109\104\122\32\109\110\115\32\105\110\116\109\103")); return nil end
+            print(_0x5("\123\110\124\100\108\32\116\107\104\123\115\32\115\104\109\104\122\32\105\110\116\109\103\41"))
+            return _0x19
         end
     },
-    GOLDEN_CHEST = {
-        Chemin = function()
-            print("Checking Golden Chest path...")
-            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
-            if not rifts then print("Rifts not found"); return nil end
-            local rift = rifts:FindFirstChild("golden-chest") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("golden-chest") end)
-            if not rift then print("golden-chest not found"); return nil end
-            local decoration = rift:FindFirstChild("Decoration")
-            if not decoration then print("Decoration not found"); return nil end
-            print("Golden Chest path found!")
-            return decoration
+    [_0x5("\106\110\108\103\104\109\137\102\107\104\123\115")]={
+        [_0x5("\102\107\104\109\104\109")]=function()
+            print(_0x5("\116\107\104\102\106\104\109\106\32\106\110\108\103\104\109\32\116\107\104\123\115\32\119\100\115\107\46\46\46"))
+            local _0x14=_0xa[_0x5("\123\104\109\103\104\122\104\103")][_0x5("\123\104\105\115\123")]
+            if not _0x14 then print(_0x5("\123\104\105\115\123\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x15=_0x14[_0x5("\106\110\108\103\104\109\45\102\107\104\123\115")] or _0x14[_0x5("\105\104\109\103\105\104\122\123\115\116\107\104\108\103\128\107\104\102\107\104\123\100\123\104")](_0x14,_0x5("\109\110\103\104\108"),true,function(_0x16) return _0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")][_0x5("\105\104\109\103")](_0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")],_0x5("\106\110\108\103\104\109\45\102\107\104\123\115")) end)
+            if not _0x15 then print(_0x5("\106\110\108\103\104\109\45\102\107\104\123\115\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x17=_0x15[_0x5("\103\104\102\110\122\100\115\104\110\109")]
+            if not _0x17 then print(_0x5("\103\104\102\110\122\100\115\104\110\109\32\109\110\115\32\105\110\116\109\103")); return nil end
+            print(_0x5("\106\110\108\103\104\109\32\116\107\104\123\115\32\119\100\115\107\32\105\110\116\109\103\41"))
+            return _0x17
         end,
-        Minuteur = function()
-            print("Checking Golden Chest timer...")
-            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
-            if not rifts then print("Rifts not found"); return nil end
-            local rift = rifts:FindFirstChild("golden-chest") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("golden-chest") end)
-            if not rift then print("golden-chest not found"); return nil end
-            local display = rift:FindFirstChild("Display")
-            if not display then print("Display not found"); return nil end
-            local surfaceGui = display:FindFirstChild("SurfaceGui")
-            if not surfaceGui then print("SurfaceGui not found"); return nil end
-            local timer = surfaceGui:FindFirstChild("Timer")
-            if not timer then print("Timer not found"); return nil end
-            print("Golden Chest timer found!")
-            return timer
+        [_0x5("\109\104\109\116\115\104\116\122")]=function()
+            print(_0x5("\116\107\104\102\106\104\109\106\32\106\110\108\103\104\109\32\116\107\104\123\115\32\115\104\109\104\122\46\46\46"))
+            local _0x14=_0xa[_0x5("\123\104\109\103\104\122\104\103")][_0x5("\123\104\105\115\123")]
+            if not _0x14 then print(_0x5("\123\104\105\115\123\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x15=_0x14[_0x5("\106\110\108\103\104\109\45\102\107\104\123\115")] or _0x14[_0x5("\105\104\109\103\105\104\122\123\115\116\107\104\108\103\128\107\104\102\107\104\123\100\123\104")](_0x14,_0x5("\109\110\103\104\108"),true,function(_0x16) return _0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")][_0x5("\105\104\109\103")](_0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")],_0x5("\106\110\108\103\104\109\45\102\107\104\123\115")) end)
+            if not _0x15 then print(_0x5("\106\110\108\103\104\109\45\102\107\104\123\115\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x17=_0x15[_0x5("\103\104\123\119\108\100\124")]
+            if not _0x17 then print(_0x5("\103\104\123\119\108\100\124\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x18=_0x17[_0x5("\123\116\122\105\100\102\104\106\116\104")]
+            if not _0x18 then print(_0x5("\123\116\122\105\100\102\104\106\116\104\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x19=_0x18[_0x5("\115\104\109\104\122")]
+            if not _0x19 then print(_0x5("\115\104\109\104\122\32\109\110\115\32\105\110\116\109\103")); return nil end
+            print(_0x5("\106\110\108\103\104\109\32\116\107\104\123\115\32\115\104\109\104\122\32\105\110\116\109\103\41"))
+            return _0x19
         end
     },
-    DICE_CHEST = {
-        Chemin = function()
-            print("Checking Dice Chest path...")
-            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
-            if not rifts then print("Rifts not found"); return nil end
-            local rift = rifts:FindFirstChild("dice-rift") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("dice-rift") end)
-            if not rift then print("dice-rift not found"); return nil end
-            local decoration = rift:FindFirstChild("Decoration")
-            if not decoration then print("Decoration not found"); return nil end
-            print("Dice Chest path found!")
-            return decoration
+    [_0x5("\103\104\102\104\137\102\107\104\123\115")]={
+        [_0x5("\102\107\104\109\104\109")]=function()
+            print(_0x5("\116\107\104\102\106\104\109\106\32\103\104\102\104\32\116\107\104\123\115\32\119\100\115\107\46\46\46"))
+            local _0x14=_0xa[_0x5("\123\104\109\103\104\122\104\103")][_0x5("\123\104\105\115\123")]
+            if not _0x14 then print(_0x5("\123\104\105\115\123\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x15=_0x14[_0x5("\103\104\102\104\45\122\104\105\115")] or _0x14[_0x5("\105\104\109\103\105\104\122\123\115\116\107\104\108\103\128\107\104\102\107\104\123\100\123\104")](_0x14,_0x5("\109\110\103\104\108"),true,function(_0x16) return _0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")][_0x5("\105\104\109\103")](_0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")],_0x5("\103\104\102\104\45\122\104\105\115")) end)
+            if not _0x15 then print(_0x5("\103\104\102\104\45\122\104\105\115\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x17=_0x15[_0x5("\103\104\102\110\122\100\115\104\110\109")]
+            if not _0x17 then print(_0x5("\103\104\102\110\122\100\115\104\110\109\32\109\110\115\32\105\110\116\109\103")); return nil end
+            print(_0x5("\103\104\102\104\32\116\107\104\123\115\32\119\100\115\107\32\105\110\116\109\103\41"))
+            return _0x17
         end,
-        Minuteur = function()
-            print("Checking Dice Chest timer...")
-            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
-            if not rifts then print("Rifts not found"); return nil end
-            local rift = rifts:FindFirstChild("dice-rift") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("dice-rift") end)
-            if not rift then print("dice-rift not found"); return nil end
-            local display = rift:FindFirstChild("Display")
-            if not display then print("Display not found"); return nil end
-            local surfaceGui = display:FindFirstChild("SurfaceGui")
-            if not surfaceGui then print("SurfaceGui not found"); return nil end
-            local timer = surfaceGui:FindFirstChild("Timer")
-            if not timer then print("Timer not found"); return nil end
-            print("Dice Chest timer found!")
-            return timer
+        [_0x5("\109\104\109\116\115\104\116\122")]=function()
+            print(_0x5("\116\107\104\102\106\104\109\106\32\103\104\102\104\32\116\107\104\123\115\32\115\104\109\104\122\46\46\46"))
+            local _0x14=_0xa[_0x5("\123\104\109\103\104\122\104\103")][_0x5("\123\104\105\115\123")]
+            if not _0x14 then print(_0x5("\123\104\105\115\123\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x15=_0x14[_0x5("\103\104\102\104\45\122\104\105\115")] or _0x14[_0x5("\105\104\109\103\105\104\122\123\115\116\107\104\108\103\128\107\104\102\107\104\123\100\123\104")](_0x14,_0x5("\109\110\103\104\108"),true,function(_0x16) return _0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")][_0x5("\105\104\109\103")](_0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")],_0x5("\103\104\102\104\45\122\104\105\115")) end)
+            if not _0x15 then print(_0x5("\103\104\102\104\45\122\104\105\115\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x17=_0x15[_0x5("\103\104\123\119\108\100\124")]
+            if not _0x17 then print(_0x5("\103\104\123\119\108\100\124\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x18=_0x17[_0x5("\123\116\122\105\100\102\104\106\116\104")]
+            if not _0x18 then print(_0x5("\123\116\122\105\100\102\104\106\116\104\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x19=_0x18[_0x5("\115\104\109\104\122")]
+            if not _0x19 then print(_0x5("\115\104\109\104\122\32\109\110\115\32\105\110\116\109\103")); return nil end
+            print(_0x5("\103\104\102\104\32\116\107\104\123\115\32\115\104\109\104\122\32\105\110\116\109\103\41"))
+            return _0x19
         end
     },
-    RAINBOW_EGG = {
-        Chemin = function()
-            print("Checking Rainbow Egg path...")
-            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
-            if not rifts then print("Rifts not found"); return nil end
-            local rift = rifts:FindFirstChild("rainbow-egg") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("rainbow-egg") end)
-            if not rift then print("rainbow-egg not found"); return nil end
-            local decoration = rift:FindFirstChild("Decoration")
-            if not decoration then print("Decoration not found"); return nil end
-            print("Rainbow Egg path found!")
-            return decoration
+    [_0x5("\122\100\104\109\101\110\128\137\104\106\106")]={
+        [_0x5("\102\107\104\109\104\109")]=function()
+            print(_0x5("\116\107\104\102\106\104\109\106\32\122\100\104\109\101\110\128\32\104\106\106\32\119\100\115\107\46\46\46"))
+            local _0x14=_0xa[_0x5("\123\104\109\103\104\122\104\103")][_0x5("\123\104\105\115\123")]
+            if not _0x14 then print(_0x5("\123\104\105\115\123\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x15=_0x14[_0x5("\122\100\104\109\101\110\128\45\104\106\106")] or _0x14[_0x5("\105\104\109\103\105\104\122\123\115\116\107\104\108\103\128\107\104\102\107\104\123\100\123\104")](_0x14,_0x5("\109\110\103\104\108"),true,function(_0x16) return _0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")][_0x5("\105\104\109\103")](_0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")],_0x5("\122\100\104\109\101\110\128\45\104\106\106")) end)
+            if not _0x15 then print(_0x5("\122\100\104\109\101\110\128\45\104\106\106\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x17=_0x15[_0x5("\103\104\102\110\122\100\115\104\110\109")]
+            if not _0x17 then print(_0x5("\103\104\102\110\122\100\115\104\110\109\32\109\110\115\32\105\110\116\109\103")); return nil end
+            print(_0x5("\122\100\104\109\101\110\128\32\104\106\106\32\119\100\115\107\32\105\110\116\109\103\41"))
+            return _0x17
         end,
-        Minuteur = function()
-            print("Checking Rainbow Egg timer...")
-            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
-            if not rifts then print("Rifts not found"); return nil end
-            local rift = rifts:FindFirstChild("rainbow-egg") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("rainbow-egg") end)
-            if not rift then print("rainbow-egg not found"); return nil end
-            local display = rift:FindFirstChild("Display")
-            if not display then print("Display not found"); return nil end
-            local surfaceGui = display:FindFirstChild("SurfaceGui")
-            if not surfaceGui then print("SurfaceGui not found"); return nil end
-            local timer = surfaceGui:FindFirstChild("Timer")
-            if not timer then print("Timer not found"); return nil end
-            print("Rainbow Egg timer found!")
-            return timer
+        [_0x5("\109\104\109\116\115\104\116\122")]=function()
+            print(_0x5("\116\107\104\102\106\104\109\106\32\122\100\104\109\101\110\128\32\104\106\106\32\115\104\109\104\122\46\46\46"))
+            local _0x14=_0xa[_0x5("\123\104\109\103\104\122\104\103")][_0x5("\123\104\105\115\123")]
+            if not _0x14 then print(_0x5("\123\104\105\115\123\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x15=_0x14[_0x5("\122\100\104\109\101\110\128\45\104\106\106")] or _0x14[_0x5("\105\104\109\103\105\104\122\123\115\116\107\104\108\103\128\107\104\102\107\104\123\100\123\104")](_0x14,_0x5("\109\110\103\104\108"),true,function(_0x16) return _0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")][_0x5("\105\104\109\103")](_0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")],_0x5("\122\100\104\109\101\110\128\45\104\106\106")) end)
+            if not _0x15 then print(_0x5("\122\100\104\109\101\110\128\45\104\106\106\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x17=_0x15[_0x5("\103\104\123\119\108\100\124")]
+            if not _0x17 then print(_0x5("\103\104\123\119\108\100\124\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x18=_0x17[_0x5("\123\116\122\105\100\102\104\106\116\104")]
+            if not _0x18 then print(_0x5("\123\116\122\105\100\102\104\106\116\104\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x19=_0x18[_0x5("\115\104\109\104\122")]
+            if not _0x19 then print(_0x5("\115\104\109\104\122\32\109\110\115\32\105\110\116\109\103")); return nil end
+            print(_0x5("\122\100\104\109\101\110\128\32\104\106\106\32\115\104\109\104\122\32\105\110\116\109\103\41"))
+            return _0x19
         end,
-        Chance = function()
-            print("Checking Rainbow Egg luck...")
-            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
-            if not rifts then print("Rifts not found"); return nil end
-            local rift = rifts:FindFirstChild("rainbow-egg") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("rainbow-egg") end)
-            if not rift then print("rainbow-egg not found"); return nil end
-            local display = rift:FindFirstChild("Display")
-            if not display then print("Display not found"); return nil end
-            local surfaceGui = display:FindFirstChild("SurfaceGui")
-            if not surfaceGui then print("SurfaceGui not found"); return nil end
-            local icon = surfaceGui:FindFirstChild("Icon")
-            if not icon then print("Icon not found"); return nil end
-            local luck = icon:FindFirstChild("Luck")
-            if not luck then print("Luck not found"); return nil end
-            print("Rainbow Egg luck found: " .. tostring(luck.Text))
-            return luck
+        [_0x5("\102\107\100\109\102\104")]=function()
+            print(_0x5("\116\107\104\102\106\104\109\106\32\122\100\104\109\101\110\128\32\104\106\106\32\108\116\102\106\46\46\46"))
+            local _0x14=_0xa[_0x5("\123\104\109\103\104\122\104\103")][_0x5("\123\104\105\115\123")]
+            if not _0x14 then print(_0x5("\123\104\105\115\123\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x15=_0x14[_0x5("\122\100\104\109\101\110\128\45\104\106\106")] or _0x14[_0x5("\105\104\109\103\105\104\122\123\115\116\107\104\108\103\128\107\104\102\107\104\123\100\123\104")](_0x14,_0x5("\109\110\103\104\108"),true,function(_0x16) return _0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")][_0x5("\105\104\109\103")](_0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")],_0x5("\122\100\104\109\101\110\128\45\104\106\106")) end)
+            if not _0x15 then print(_0x5("\122\100\104\109\101\110\128\45\104\106\106\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x17=_0x15[_0x5("\103\104\123\119\108\100\124")]
+            if not _0x17 then print(_0x5("\103\104\123\119\108\100\124\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x18=_0x17[_0x5("\123\116\122\105\100\102\104\106\116\104")]
+            if not _0x18 then print(_0x5("\123\116\122\105\100\102\104\106\116\104\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x19=_0x18[_0x5("\104\102\110\109")]
+            if not _0x19 then print(_0x5("\104\102\110\109\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x1a=_0x19[_0x5("\108\116\102\106")]
+            if not _0x1a then print(_0x5("\108\116\102\106\32\109\110\115\32\105\110\116\109\103")); return nil end
+            print(_0x5("\122\100\104\109\101\110\128\32\104\106\106\32\108\116\102\106\32\105\110\116\109\103\58\32")..tostring(_0x1a[_0x5("\115\104\127\115")]))
+            return _0x1a
         end
     },
-    VOID_EGG = {
-        Chemin = function()
-            print("Checking Void Egg path...")
-            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
-            if not rifts then print("Rifts not found"); return nil end
-            local rift = rifts:FindFirstChild("void-egg") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("void-egg") end)
-            if not rift then print("void-egg not found"); return nil end
-            local decoration = rift:FindFirstChild("Decoration")
-            if not decoration then print("Decoration not found"); return nil end
-            print("Void Egg path found!")
-            return decoration
+    [_0x5("\121\110\104\103\137\104\106\106")]={
+        [_0x5("\102\107\104\109\104\109")]=function()
+            print(_0x5("\116\107\104\102\106\104\109\106\32\121\110\104\103\32\104\106\106\32\119\100\115\107\46\46\46"))
+            local _0x14=_0xa[_0x5("\123\104\109\103\104\122\104\103")][_0x5("\123\104\105\115\123")]
+            if not _0x14 then print(_0x5("\123\104\105\115\123\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x15=_0x14[_0x5("\121\110\104\103\45\104\106\106")] or _0x14[_0x5("\105\104\109\103\105\104\122\123\115\116\107\104\108\103\128\107\104\102\107\104\123\100\123\104")](_0x14,_0x5("\109\110\103\104\108"),true,function(_0x16) return _0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")][_0x5("\105\104\109\103")](_0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")],_0x5("\121\110\104\103\45\104\106\106")) end)
+            if not _0x15 then print(_0x5("\121\110\104\103\45\104\106\106\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x17=_0x15[_0x5("\103\104\102\110\122\100\115\104\110\109")]
+            if not _0x17 then print(_0x5("\103\104\102\110\122\100\115\104\110\109\32\109\110\115\32\105\110\116\109\103")); return nil end
+            print(_0x5("\121\110\104\103\32\104\106\106\32\119\100\115\107\32\105\110\116\109\103\41"))
+            return _0x17
         end,
-        Minuteur = function()
-            print("Checking Void Egg timer...")
-            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
-            if not rifts then print("Rifts not found"); return nil end
-            local rift = rifts:FindFirstChild("void-egg") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("void-egg") end)
-            if not rift then print("void-egg not found"); return nil end
-            local display = rift:FindFirstChild("Display")
-            if not display then print("Display not found"); return nil end
-            local surfaceGui = display:FindFirstChild("SurfaceGui")
-            if not surfaceGui then print("SurfaceGui not found"); return nil end
-            local timer = surfaceGui:FindFirstChild("Timer")
-            if not timer then print("Timer not found"); return nil end
-            print("Void Egg timer found!")
-            return timer
+        [_0x5("\109\104\109\116\115\104\116\122")]=function()
+            print(_0x5("\116\107\104\102\106\104\109\106\32\121\110\104\103\32\104\106\106\32\115\104\109\104\122\46\46\46"))
+            local _0x14=_0xa[_0x5("\123\104\109\103\104\122\104\103")][_0x5("\123\104\105\115\123")]
+            if not _0x14 then print(_0x5("\123\104\105\115\123\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x15=_0x14[_0x5("\121\110\104\103\45\104\106\106")] or _0x14[_0x5("\105\104\109\103\105\104\122\123\115\116\107\104\108\103\128\107\104\102\107\104\123\100\123\104")](_0x14,_0x5("\109\110\103\104\108"),true,function(_0x16) return _0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")][_0x5("\105\104\109\103")](_0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")],_0x5("\121\110\104\103\45\104\106\106")) end)
+            if not _0x15 then print(_0x5("\121\110\104\103\45\104\106\106\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x17=_0x15[_0x5("\103\104\123\119\108\100\124")]
+            if not _0x17 then print(_0x5("\103\104\123\119\108\100\124\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x18=_0x17[_0x5("\123\116\122\105\100\102\104\106\116\104")]
+            if not _0x18 then print(_0x5("\123\116\122\105\100\102\104\106\116\104\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x19=_0x18[_0x5("\115\104\109\104\122")]
+            if not _0x19 then print(_0x5("\115\104\109\104\122\32\109\110\115\32\105\110\116\109\103")); return nil end
+            print(_0x5("\121\110\104\103\32\104\106\106\32\115\104\109\104\122\32\105\110\116\109\103\41"))
+            return _0x19
         end,
-        Chance = function()
-            print("Checking Void Egg luck...")
-            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
-            if not rifts then print("Rifts not found"); return nil end
-            local rift = rifts:FindFirstChild("void-egg") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("void-egg") end)
-            if not rift then print("void-egg not found"); return nil end
-            local display = rift:FindFirstChild("Display")
-            if not display then print("Display not found"); return nil end
-            local surfaceGui = display:FindFirstChild("SurfaceGui")
-            if not surfaceGui then print("SurfaceGui not found"); return nil end
-            local icon = surfaceGui:FindFirstChild("Icon")
-            if not icon then print("Icon not found"); return nil end
-            local luck = icon:FindFirstChild("Luck")
-            if not luck then print("Luck not found"); return nil end
-            print("Void Egg luck found: " .. tostring(luck.Text))
-            return luck
+        [_0x5("\102\107\100\109\102\104")]=function()
+            print(_0x5("\116\107\104\102\106\104\109\106\32\121\110\104\103\32\104\106\106\32\108\116\102\106\46\46\46"))
+            local _0x14=_0xa[_0x5("\123\104\109\103\104\122\104\103")][_0x5("\123\104\105\115\123")]
+            if not _0x14 then print(_0x5("\123\104\105\115\123\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x15=_0x14[_0x5("\121\110\104\103\45\104\106\106")] or _0x14[_0x5("\105\104\109\103\105\104\122\123\115\116\107\104\108\103\128\107\104\102\107\104\123\100\123\104")](_0x14,_0x5("\109\110\103\104\108"),true,function(_0x16) return _0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")][_0x5("\105\104\109\103")](_0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")],_0x5("\121\110\104\103\45\104\106\106")) end)
+            if not _0x15 then print(_0x5("\121\110\104\103\45\104\106\106\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x17=_0x15[_0x5("\103\104\123\119\108\100\124")]
+            if not _0x17 then print(_0x5("\103\104\123\119\108\100\124\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x18=_0x17[_0x5("\123\116\122\105\100\102\104\106\116\104")]
+            if not _0x18 then print(_0x5("\123\116\122\105\100\102\104\106\116\104\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x19=_0x18[_0x5("\104\102\110\109")]
+            if not _0x19 then print(_0x5("\104\102\110\109\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x1a=_0x19[_0x5("\108\116\102\106")]
+            if not _0x1a then print(_0x5("\108\116\102\106\32\109\110\115\32\105\110\116\109\103")); return nil end
+            print(_0x5("\121\110\104\103\32\104\106\106\32\108\116\102\106\32\105\110\116\109\103\58\32")..tostring(_0x1a[_0x5("\115\104\127\115")]))
+            return _0x1a
         end
     },
-    NIGHTMARE_EGG = {
-        Chemin = function()
-            print("Checking Nightmare Egg path...")
-            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
-            if not rifts then print("Rifts not found"); return nil end
-            local rift = rifts:FindFirstChild("nightmare-egg") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("nightmare-egg") end)
-            if not rift then print("nightmare-egg not found"); return nil end
-            local decoration = rift:FindFirstChild("Decoration")
-            if not decoration then print("Decoration not found"); return nil end
-            print("Nightmare Egg path found!")
-            return decoration
+    [_0x5("\109\104\106\107\115\109\100\122\104\137\104\106\106")]={
+        [_0x5("\102\107\104\109\104\109")]=function()
+            print(_0x5("\116\107\104\102\106\104\109\106\32\109\104\106\107\115\109\100\122\104\32\104\106\106\32\119\100\115\107\46\46\46"))
+            local _0x14=_0xa[_0x5("\123\104\109\103\104\122\104\103")][_0x5("\123\104\105\115\123")]
+            if not _0x14 then print(_0x5("\123\104\105\115\123\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x15=_0x14[_0x5("\109\104\106\107\115\109\100\122\104\45\104\106\106")] or _0x14[_0x5("\105\104\109\103\105\104\122\123\115\116\107\104\108\103\128\107\104\102\107\104\123\100\123\104")](_0x14,_0x5("\109\110\103\104\108"),true,function(_0x16) return _0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")][_0x5("\105\104\109\103")](_0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")],_0x5("\109\104\106\107\115\109\100\122\104\45\104\106\106")) end)
+            if not _0x15 then print(_0x5("\109\104\106\107\115\109\100\122\104\45\104\106\106\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x17=_0x15[_0x5("\103\104\102\110\122\100\115\104\110\109")]
+            if not _0x17 then print(_0x5("\103\104\102\110\122\100\115\104\110\109\32\109\110\115\32\105\110\116\109\103")); return nil end
+            print(_0x5("\109\104\106\107\115\109\100\122\104\32\104\106\106\32\119\100\115\107\32\105\110\116\109\103\41"))
+            return _0x17
         end,
-        Minuteur = function()
-            print("Checking Nightmare Egg timer...")
-            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
-            if not rifts then print("Rifts not found"); return nil end
-            local rift = rifts:FindFirstChild("nightmare-egg") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("nightmare-egg") end)
-            if not rift then print("nightmare-egg not found"); return nil end
-            local display = rift:FindFirstChild("Display")
-            if not display then print("Display not found"); return nil end
-            local surfaceGui = display:FindFirstChild("SurfaceGui")
-            if not surfaceGui then print("SurfaceGui not found"); return nil end
-            local timer = surfaceGui:FindFirstChild("Timer")
-            if not timer then print("Timer not found"); return nil end
-            print("Nightmare Egg timer found!")
-            return timer
+        [_0x5("\109\104\109\116\115\104\116\122")]=function()
+            print(_0x5("\116\107\104\102\106\104\109\106\32\109\104\106\107\115\109\100\122\104\32\104\106\106\32\115\104\109\104\122\46\46\46"))
+            local _0x14=_0xa[_0x5("\123\104\109\103\104\122\104\103")][_0x5("\123\104\105\115\123")]
+            if not _0x14 then print(_0x5("\123\104\105\115\123\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x15=_0x14[_0x5("\109\104\106\107\115\109\100\122\104\45\104\106\106")] or _0x14[_0x5("\105\104\109\103\105\104\122\123\115\116\107\104\108\103\128\107\104\102\107\104\123\100\123\104")](_0x14,_0x5("\109\110\103\104\108"),true,function(_0x16) return _0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")][_0x5("\105\104\109\103")](_0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")],_0x5("\109\104\106\107\115\109\100\122\104\45\104\106\106")) end)
+            if not _0x15 then print(_0x5("\109\104\106\107\115\109\100\122\104\45\104\106\106\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x17=_0x15[_0x5("\103\104\123\119\108\100\124")]
+            if not _0x17 then print(_0x5("\103\104\123\119\108\100\124\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x18=_0x17[_0x5("\123\116\122\105\100\102\104\106\116\104")]
+            if not _0x18 then print(_0x5("\123\116\122\105\100\102\104\106\116\104\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x19=_0x18[_0x5("\115\104\109\104\122")]
+            if not _0x19 then print(_0x5("\115\104\109\104\122\32\109\110\115\32\105\110\116\109\103")); return nil end
+            print(_0x5("\109\104\106\107\115\109\100\122\104\32\104\106\106\32\115\104\109\104\122\32\105\110\116\109\103\41"))
+            return _0x19
         end,
-        Chance = function()
-            print("Checking Nightmare Egg luck...")
-            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
-            if not rifts then print("Rifts not found"); return nil end
-            local rift = rifts:FindFirstChild("nightmare-egg") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("nightmare-egg") end)
-            if not rift then print("nightmare-egg not found"); return nil end
-            local display = rift:FindFirstChild("Display")
-            if not display then print("Display not found"); return nil end
-            local surfaceGui = display:FindFirstChild("SurfaceGui")
-            if not surfaceGui then print("SurfaceGui not found"); return nil end
-            local icon = surfaceGui:FindFirstChild("Icon")
-            if not icon then print("Icon not found"); return nil end
-            local luck = icon:FindFirstChild("Luck")
-            if not luck then print("Luck not found"); return nil end
-            print("Nightmare Egg luck found: " .. tostring(luck.Text))
-            return luck
+        [_0x5("\102\107\100\109\102\104")]=function()
+            print(_0x5("\116\107\104\102\106\104\109\106\32\109\104\106\107\115\109\100\122\104\32\104\106\106\32\108\116\102\106\46\46\46"))
+            local _0x14=_0xa[_0x5("\123\104\109\103\104\122\104\103")][_0x5("\123\104\105\115\123")]
+            if not _0x14 then print(_0x5("\123\104\105\115\123\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x15=_0x14[_0x5("\109\104\106\107\115\109\100\122\104\45\104\106\106")] or _0x14[_0x5("\105\104\109\103\105\104\122\123\115\116\107\104\108\103\128\107\104\102\107\104\123\100\123\104")](_0x14,_0x5("\109\110\103\104\108"),true,function(_0x16) return _0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")][_0x5("\105\104\109\103")](_0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")],_0x5("\109\104\106\107\115\109\100\122\104\45\104\106\106")) end)
+            if not _0x15 then print(_0x5("\109\104\106\107\115\109\100\122\104\45\104\106\106\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x17=_0x15[_0x5("\103\104\123\119\108\100\124")]
+            if not _0x17 then print(_0x5("\103\104\123\119\108\100\124\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x18=_0x17[_0x5("\123\116\122\105\100\102\104\106\116\104")]
+            if not _0x18 then print(_0x5("\123\116\122\105\100\102\104\106\116\104\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x19=_0x18[_0x5("\104\102\110\109")]
+            if not _0x19 then print(_0x5("\104\102\110\109\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x1a=_0x19[_0x5("\108\116\102\106")]
+            if not _0x1a then print(_0x5("\108\116\102\106\32\109\110\115\32\105\110\116\109\103")); return nil end
+            print(_0x5("\109\104\106\107\115\109\100\122\104\32\104\106\106\32\108\116\102\106\32\105\110\116\109\103\58\32")..tostring(_0x1a[_0x5("\115\104\127\115")]))
+            return _0x1a
         end
     },
-    CYBER_EGG = {
-        Chemin = function()
-            print("Checking Cyber Egg path...")
-            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
-            if not rifts then print("Rifts not found"); return nil end
-            local rift = rifts:FindFirstChild("cyber-egg") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("cyber-egg") end)
-            if not rift then print("cyber-egg not found"); return nil end
-            local decoration = rift:FindFirstChild("Decoration")
-            if not decoration then print("Decoration not found"); return nil end
-            print("Cyber Egg path found!")
-            return decoration
+    [_0x5("\102\124\101\104\122\137\104\106\106")]={
+        [_0x5("\102\107\104\109\104\109")]=function()
+            print(_0x5("\116\107\104\102\106\104\109\106\32\102\124\101\104\122\32\104\106\106\32\119\100\115\107\46\46\46"))
+            local _0x14=_0xa[_0x5("\123\104\109\103\104\122\104\103")][_0x5("\123\104\105\115\123")]
+            if not _0x14 then print(_0x5("\123\104\105\115\123\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x15=_0x14[_0x5("\102\124\101\104\122\45\104\106\106")] or _0x14[_0x5("\105\104\109\103\105\104\122\123\115\116\107\104\108\103\128\107\104\102\107\104\123\100\123\104")](_0x14,_0x5("\109\110\103\104\108"),true,function(_0x16) return _0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")][_0x5("\105\104\109\103")](_0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")],_0x5("\102\124\101\104\122\45\104\106\106")) end)
+            if not _0x15 then print(_0x5("\102\124\101\104\122\45\104\106\106\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x17=_0x15[_0x5("\103\104\102\110\122\100\115\104\110\109")]
+            if not _0x17 then print(_0x5("\103\104\102\110\122\100\115\104\110\109\32\109\110\115\32\105\110\116\109\103")); return nil end
+            print(_0x5("\102\124\101\104\122\32\104\106\106\32\119\100\115\107\32\105\110\116\109\103\41"))
+            return _0x17
         end,
-        Minuteur = function()
-            print("Checking Cyber Egg timer...")
-            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
-            if not rifts then print("Rifts not found"); return nil end
-            local rift = rifts:FindFirstChild("cyber-egg") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("cyber-egg") end)
-            if not rift then print("cyber-egg not found"); return nil end
-            local display = rift:FindFirstChild("Display")
-            if not display then print("Display not found"); return nil end
-            local surfaceGui = display:FindFirstChild("SurfaceGui")
-            if not surfaceGui then print("SurfaceGui not found"); return nil end
-            local timer = surfaceGui:FindFirstChild("Timer")
-            if not timer then print("Timer not found"); return nil end
-            print("Cyber Egg timer found!")
-            return timer
+        [_0x5("\109\104\109\116\115\104\116\122")]=function()
+            print(_0x5("\116\107\104\102\106\104\109\106\32\102\124\101\104\122\32\104\106\106\32\115\104\109\104\122\46\46\46"))
+            local _0x14=_0xa[_0x5("\123\104\109\103\104\122\104\103")][_0x5("\123\104\105\115\123")]
+            if not _0x14 then print(_0x5("\123\104\105\115\123\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x15=_0x14[_0x5("\102\124\101\104\122\45\104\106\106")] or _0x14[_0x5("\105\104\109\103\105\104\122\123\115\116\107\104\108\103\128\107\104\102\107\104\123\100\123\104")](_0x14,_0x5("\109\110\103\104\108"),true,function(_0x16) return _0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")][_0x5("\105\104\109\103")](_0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")],_0x5("\102\124\101\104\122\45\104\106\106")) end)
+            if not _0x15 then print(_0x5("\102\124\101\104\122\45\104\106\106\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x17=_0x15[_0x5("\103\104\123\119\108\100\124")]
+            if not _0x17 then print(_0x5("\103\104\123\119\108\100\124\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x18=_0x17[_0x5("\123\116\122\105\100\102\104\106\116\104")]
+            if not _0x18 then print(_0x5("\123\116\122\105\100\102\104\106\116\104\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x19=_0x18[_0x5("\115\104\109\104\122")]
+            if not _0x19 then print(_0x5("\115\104\109\104\122\32\109\110\115\32\105\110\116\109\103")); return nil end
+            print(_0x5("\102\124\101\104\122\32\104\106\106\32\115\104\109\104\122\32\105\110\116\109\103\41"))
+            return _0x19
         end,
-        Chance = function()
-            print("Checking Cyber Egg luck...")
-            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
-            if not rifts then print("Rifts not found"); return nil end
-            local rift = rifts:FindFirstChild("cyber-egg") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("cyber-egg") end)
-            if not rift then print("cyber-egg not found"); return nil end
-            local display = rift:FindFirstChild("Display")
-            if not display then print("Display not found"); return nil end
-            local surfaceGui = display:FindFirstChild("SurfaceGui")
-            if not surfaceGui then print("SurfaceGui not found"); return nil end
-            local icon = surfaceGui:FindFirstChild("Icon")
-            if not icon then print("Icon not found"); return nil end
-            local luck = icon:FindFirstChild("Luck")
-            if not luck then print("Luck not found"); return nil end
-            print("Cyber Egg luck found: " .. tostring(luck.Text))
-            return luck
+        [_0x5("\102\107\100\109\102\104")]=function()
+            print(_0x5("\116\107\104\102\106\104\109\106\32\102\124\101\104\122\32\104\106\106\32\108\116\102\106\46\46\46"))
+            local _0x14=_0xa[_0x5("\123\104\109\103\104\122\104\103")][_0x5("\123\104\105\115\123")]
+            if not _0x14 then print(_0x5("\123\104\105\115\123\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x15=_0x14[_0x5("\102\124\101\104\122\45\104\106\106")] or _0x14[_0x5("\105\104\109\103\105\104\122\123\115\116\107\104\108\103\128\107\104\102\107\104\123\100\123\104")](_0x14,_0x5("\109\110\103\104\108"),true,function(_0x16) return _0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")][_0x5("\105\104\109\103")](_0x16[_0x5("\109\100\109\104")][_0x5("\108\110\128\104\122")],_0x5("\102\124\101\104\122\45\104\106\106")) end)
+            if not _0x15 then print(_0x5("\102\124\101\104\122\45\104\106\106\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x17=_0x15[_0x5("\103\104\102\110\122\100\115\104\110\109")]
+            if not _0x17 then print(_0x5("\103\104\102\110\122\100\115\104\110\109\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x18=_0x17[_0x5("\103\104\123\119\108\100\124")]
+            if not _0x18 then print(_0x5("\103\104\123\119\108\100\124\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x19=_0x18[_0x5("\123\116\122\105\100\102\104\106\116\104")]
+            if not _0x19 then print(_0x5("\123\116\122\105\100\102\104\106\116\104\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x1a=_0x19[_0x5("\104\102\110\109")]
+            if not _0x1a then print(_0x5("\104\102\110\109\32\109\110\115\32\105\110\116\109\103")); return nil end
+            local _0x1b=_0x1a[_0x5("\108\116\102\106")]
+            if not _0x1b then print(_0x5("\108\116\102\106\32\109\110\115\32\105\110\116\109\103")); return nil end
+            print(_0x5("\102\124\101\104\122\32\104\106\106\32\108\116\102\106\32\105\110\116\109\103\58\32")..tostring(_0x1b[_0x5("\115\104\127\115")]))
+            return _0x1b
         end
     }
 }
-
--- Fonction pour envoyer un webhook
-local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
-    print("Sending webhook for " .. nomFaille .. " to " .. tostring(urlWebhook))
-    local multiplicateur = chance or "Unknown"
-    local playerCount = #Players:GetPlayers()
-    local maxPlayers = Players.MaxPlayers or 100
-    local joueurs = tostring(playerCount) .. "/" .. tostring(maxPlayers)
-    local jobId = game.JobId or "unknown_jobid"
-    local joinUrl = "https://joinbgsi.shop/?placeID=85896571713843&gameInstanceId=" .. jobId
-
-    local chemin = CHEMINS_FAILLES[nomFaille].Chemin()
-    local hauteur = "N/A"
-    if chemin then
-        local basePart = chemin:FindFirstChildWhichIsA("BasePart")
-        if basePart then
-            hauteur = math.floor(basePart.Position.Y)
+local function _0x1c(_0x1d,_0x1e,_0x1f,_0x20)
+    print(_0x5("\123\104\109\103\104\109\106\32\128\104\101\107\110\110\106\32\105\110\122\32").._0x1d.._0x5("\32\115\110\32")..tostring(_0x20))
+    local _0x21=_0x1f or _0x5("\116\109\106\109\110\128\109")
+    local _0x22=#_0xb[_0x5("\106\104\115\119\108\100\124\104\122\123")]()
+    local _0x23=_0xb[_0x5("\109\100\127\119\108\100\124\104\122\123")] or 100
+    local _0x24=tostring(_0x22).._0x5("\47")..tostring(_0x23)
+    local _0x25=game[_0x5("\105\110\101\104\103")] or _0x5("\116\109\106\109\110\128\109\137\105\110\101\104\103")
+    local _0x26=_0x5("\107\115\115\119\114\58\47\47\105\110\104\109\101\106\123\104\46\123\107\110\119\47\63\119\108\100\102\104\104\103\61\56\53\56\57\54\53\55\49\55\49\51\56\52\51\38\106\100\109\104\104\109\123\115\100\109\102\104\104\103\61").._0x25
+    local _0x27=_0x13[_0x1d][_0x5("\102\107\104\109\104\109")]()
+    local _0x28=_0x5("\109\47\100")
+    if _0x27 then
+        local _0x29=_0x27[_0x5("\105\104\109\103\105\104\122\123\115\116\107\104\108\103\128\107\104\102\107\104\123\100\123\104")](_0x27,_0x5("\101\100\123\104\119\100\122\115"))
+        if _0x29 then
+            _0x28=math.floor(_0x29[_0x5("\119\110\123\104\115\104\110\109")][_0x5("\124")])
         end
     end
-
-    local embed = {
-        title = nomFaille:gsub("_", " "):gsub("(%a)([%w']*)", function(first, rest) return first:upper() .. rest:lower() end) .. " Trouvé !",
-        color = 16777023,
-        fields = {
-            {name = "⏱️ Temps Restant", value = tostring(tempsRestant), inline = true},
-            {name = "📏 Hauteur", value = tostring(hauteur), inline = true},
-            {name = "🍀 Multiplicateur", value = tostring(multiplicateur), inline = true},
-            {name = "👤 Nombre de Joueurs", value = joueurs, inline = true},
-            {name = "🌌 Téléportation", value = "JobId: `" .. jobId .. "`\n🔗 **[REJOINDRE SERVEUR](" .. joinUrl .. ")**", inline = false}
-        },
-        footer = {text = os.date("%Y-%m-%d - %I:%M:%S %p")},
-        timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ")
-    }
-
-    if CONFIG.ID_DISCORD and CONFIG.ID_DISCORD ~= "" then
-        embed.content = "<@" .. CONFIG.ID_DISCORD .. ">"
-    end
-
-    local payload = {embeds = {embed}}
-    local cibleWebhook = urlWebhook
-    if not cibleWebhook or cibleWebhook == "" then
-        warn("Invalid webhook URL for " .. nomFaille)
-        return
-    end
-
-    local encodedPayload = HttpService:JSONEncode(payload)
-    print("Webhook payload: " .. encodedPayload)
-
-    local succes, erreur = false, nil
-    if syn and syn.request then
-        print("Trying syn.request...")
-        succes, erreur = pcall(function()
-            local response = syn.request({
-                Url = cibleWebhook,
-                Method = "POST",
-                Headers = {["Content-Type"] = "application/json"},
-                Body = encodedPayload
-            })
-            if not response.Success then
-                error("syn.request failed: " .. tostring(response.StatusCode))
-            end
-        end)
-    elseif http_request then
-        print("Trying http_request...")
-        succes, erreur = pcall(function()
-            local response = http_request({
-                Url = cibleWebhook,
-                Method = "POST",
-                Headers = {["Content-Type"] = "application/json"},
-                Body = encodedPayload
-            })
-            if not response.Success then
-                error("http_request failed: " .. tostring(response.StatusCode))
-            end
-        end)
-    elseif HttpService.PostAsync then
-        print("Trying HttpService...")
-        succes, erreur = pcall(function()
-            HttpService:PostAsync(cibleWebhook, encodedPayload, Enum.HttpContentType.ApplicationJson)
-        end)
-    end
-
-    if not succes then
-        warn("Webhook failed for " .. nomFaille .. ": " .. tostring(erreur))
-        print("Manual payload: " .. encodedPayload)
-    else
-        print("Webhook sent for " .. nomFaille)
-    end
-end
-
--- Vérifier les failles
-local detectedRifts = {}
-local function verifierFailles()
-    print("Checking rifts...")
-    for nomFaille, donneesFaille in pairs(CHEMINS_FAILLES) do
-        local configFaille = CONFIG.FAILES[nomFaille]
-        if configFaille and configFaille.ACTIVE then
-            print("Verifying " .. nomFaille .. "...")
-            local chemin = donneesFaille.Chemin()
-            if chemin and chemin.Parent then
-                local minuteur = donneesFaille.Minuteur()
-                if minuteur then
-                    local texteMinuteur = minuteur.Text or "N/A"
-                    local chance = nil
-                    if donneesFaille.Chance then
-                        local chanceObj = donneesFaille.Chance()
-                        if chanceObj then
-                            local texteChance = (chanceObj.Text or ""):upper()
-                            if table.find(CONFIG.SNIPE_LUCK, texteChance) then
-                                chance = texteChance
-                                print(nomFaille .. " luck matches: " .. texteChance)
-                            end
-                        end
-                    end
-                    if not detectedRifts[nomFaille] then
-                        detectedRifts[nomFaille] = true
-                        envoyerWebhook(nomFaille, texteMinuteur, chance, configFaille.WEBHOOK_URL)
-                    end
-                else
-                    detectedRifts[nomFaille] = nil
-                end
-            else
-                detectedRifts[nomFaille] = nil
-            end
-        end
-    end
-end
-
--- Scan initial
-local function initialScan()
-    print("Starting initial scan...")
-    verifierFailles()
-    print("Initial scan done!")
-end
-
--- Changer de serveur
-local function changerServeur()
-    local succes, erreur = pcall(function()
-        if CONFIG.HOP_SERVER and TeleportService.TeleportToPlaceInstance then
-            TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, Players.LocalPlayer)
-        elseif TeleportService.Teleport then
-            TeleportService:Teleport(game.PlaceId, Players.LocalPlayer)
-        else
-            error("Teleport not supported")
-        end
-    end)
-    if not succes then
-        warn("Teleport failed: " .. tostring(erreur))
-        wait(10)
-        changerServeur()
-    end
-end
-
--- Exécuter
-initialScan()
-while true do
-    verifierFailles()
-    wait(CONFIG.INTERVALLE_VERIFICATION)
-    if os.time() % CONFIG.INTERVALLE_CHANGEMENT_SERVEUR < CONFIG.INTERVALLE_VERIFICATION then
-        detectedRifts = {}
-        changerServeur()
-    end
-end
+    local _0x2a={
+        [_0x5("\115\104\115\108\104")]=_0x1d:gsub(_0x5("\137"),
