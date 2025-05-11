@@ -510,7 +510,7 @@ local CHEMINS_FAILLES = {
     }
 }
 
--- Fonction pour envoyer un webhook (with exact embed format)
+-- Fonction pour envoyer un webhook (simplified for compatibility)
 local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
     print("Attempting to send webhook for " .. nomFaille .. " to " .. tostring(urlWebhook))
     local multiplicateur = chance or "Unknown"
@@ -524,24 +524,25 @@ local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
     local chemin = CHEMINS_FAILLES[nomFaille].Chemin()
     local hauteur = chemin and math.floor(chemin.Position.Y) or "N/A"
 
+    -- Simplified embed to avoid compatibility issues
     local embed = {
         title = nomFaille .. " Trouvé !",
-        color = 16777023,
+        color = 16777023, -- Light purple as requested
         fields = {
-            {name = "⏱️ Temps Restant", value = tempsRestant, inline = true},
-            {name = "📏 Hauteur", value = hauteur, inline = true},
-            {name = "🍀 Multiplicateur", value = multiplicateur, inline = true},
+            {name = "⏱️ Temps Restant", value = tostring(tempsRestant), inline = true},
+            {name = "📏 Hauteur", value = tostring(hauteur), inline = true},
+            {name = "🍀 Multiplicateur", value = tostring(multiplicateur), inline = true},
             {name = "👤 Nombre de Joueurs", value = joueurs, inline = true},
             {
                 name = "🌌 Téléportation",
-                value = "JobId```" .. jobId .. "```\n🔗 **[REJOINDRE SERVEUR](" .. joinUrl .. ")**",
+                value = "JobId: " .. jobId .. "\n[REJOINDRE SERVEUR](" .. joinUrl .. ")",
                 inline = false
             }
         },
         footer = {
             text = "BGSI FR | .gg/pVaaDtxkUe - " .. os.date("%Y-%m-%d - %I:%M:%S %p")
         },
-        timestamp = os.date("!%Y-%m-%dT%H:%M:%S%z")
+        timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ") -- Simplified ISO 8601 format
     }
     
     if CONFIG.ID_DISCORD and CONFIG.ID_DISCORD ~= "" then
@@ -577,7 +578,7 @@ local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
             })
             print("syn.request response: " .. tostring(response.Success) .. " - " .. tostring(response.StatusCode) .. " - " .. tostring(response.Body))
             if not response.Success then
-                error("syn.request failed with status " .. tostring(response.StatusCode))
+                error("syn.request failed with status " .. tostring(response.StatusCode) .. ": " .. tostring(response.Body))
             end
         end)
     end
@@ -594,7 +595,7 @@ local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
             })
             print("http_request response: " .. tostring(response.Success) .. " - " .. tostring(response.StatusCode) .. " - " .. tostring(response.Body))
             if not response.Success then
-                error("http_request failed with status " .. tostring(response.StatusCode))
+                error("http_request failed with status " .. tostring(response.StatusCode) .. ": " .. tostring(response.Body))
             end
         end)
     end
@@ -615,7 +616,7 @@ local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
                 })
                 print("HttpService response: " .. tostring(response.Success) .. " - " .. tostring(response.StatusCode) .. " - " .. tostring(response.Body))
                 if not response.Success then
-                    error("HttpService failed with status " .. tostring(response.StatusCode))
+                    error("HttpService failed with status " .. tostring(response.StatusCode) .. ": " .. tostring(response.Body))
                 end
             else
                 error("HttpService not supported by this executor")
@@ -629,6 +630,7 @@ local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
         print("Since direct HTTP failed, here’s the payload to send manually to " .. cibleWebhook .. ":")
         print(encodedPayload)
         print("Copy the above payload, go to your webhook URL, and send it via a tool like Postman or a browser extension.")
+        print("Also, check the error above for details. Common issues: invalid webhook URL, rate limits, or payload format errors.")
     else
         print("Webhook sent for " .. nomFaille .. " successfully!")
     end
