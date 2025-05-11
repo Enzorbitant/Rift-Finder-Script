@@ -409,7 +409,7 @@ local CHEMINS_FAILLES = {
 
 -- Fonction pour envoyer un webhook
 local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
-    print("Attempting to send webhook for " .. nomFaille)
+    print("Attempting to send webhook for " .. nomFaille .. " to " .. tostring(urlWebhook))
     local hauteur = CHEMINS_FAILLES[nomFaille].Hauteur()
     if not hauteur then
         print("Failed to get hauteur for " .. nomFaille)
@@ -444,16 +444,26 @@ local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
     }
     
     local cibleWebhook = urlWebhook
-    if not cibleWebhook or cibleWebhook == "" then
-        error("No valid webhook URL for " .. nomFaille .. ", you fucked up!")
+    if not cibleWebhook or cibleWebhook == "" or cibleWebhook == "VOTRE_WEBHOOK_" .. nomFaille .. "_ICI" then
+        warn("No valid webhook URL for " .. nomFaille .. ", you fucked up! Set a proper URL in RiftFindersConfig.lua")
         return
     end
     
+    local encodedPayload = HttpService:JSONEncode(payload)
+    print("Webhook payload: " .. encodedPayload)
+
     local succes, erreur = pcall(function()
         if HttpService.PostAsync then
-            HttpService:PostAsync(cibleWebhook, HttpService:JSONEncode(payload), Enum.HttpContentType.ApplicationJson)
+            local response = HttpService:PostAsync(cibleWebhook, encodedPayload, Enum.HttpContentType.ApplicationJson)
+            print("Webhook response: " .. tostring(response))
         elseif HttpService.request then
-            HttpService:request({Url = cibleWebhook, Method = "POST", Headers = {["Content-Type"] = "application/json"}, Body = HttpService:JSONEncode(payload)})
+            local response = HttpService:request({
+                Url = cibleWebhook,
+                Method = "POST",
+                Headers = {["Content-Type"] = "application/json"},
+                Body = encodedPayload
+            })
+            print("Webhook response: " .. tostring(response.Success) .. " - " .. tostring(response.StatusCode) .. " - " .. tostring(response.Body))
         else
             error("Webhook sending not supported by this executor")
         end
@@ -466,9 +476,11 @@ local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
     end
 end
 
--- Fonction pour vérifier les failles
+-- Fonction pour vérifier les failles (supporting multiple rifts)
 local function verifierFailles()
     print("Checking for rifts...")
+    local detectedRifts = {} -- Store detected rifts to process all at once
+
     for nomFaille, donneesFaille in pairs(CHEMINS_FAILLES) do
         local configFaille = CONFIG.FAILES[nomFaille]
         if configFaille and configFaille.ACTIVE then
@@ -495,7 +507,8 @@ local function verifierFailles()
                             print(nomFaille .. " luck object not found")
                         end
                     end
-                    envoyerWebhook(nomFaille, texteMinuteur, chance, configFaille.WEBHOOK_URL)
+                    -- Store the rift to send webhook later
+                    table.insert(detectedRifts, {nomFaille, texteMinuteur, chance, configFaille.WEBHOOK_URL})
                 else
                     print(nomFaille .. " timer not found")
                 end
@@ -504,11 +517,19 @@ local function verifierFailles()
             end
         end
     end
+
+    -- Process all detected rifts
+    for _, riftData in ipairs(detectedRifts) do
+        local nomFaille, texteMinuteur, chance, webhookUrl = unpack(riftData)
+        envoyerWebhook(nomFaille, texteMinuteur, chance, webhookUrl)
+    end
 end
 
--- Fonction pour initial scan
+-- Fonction pour initial scan (supporting multiple rifts)
 local function initialScan()
     print("Starting initial scan of rifts...")
+    local detectedRifts = {} -- Store detected rifts to process all at once
+
     for nomFaille, donneesFaille in pairs(CHEMINS_FAILLES) do
         local configFaille = CONFIG.FAILES[nomFaille]
         if configFaille and configFaille.ACTIVE then
@@ -535,7 +556,8 @@ local function initialScan()
                             print(nomFaille .. " luck object not found in initial scan")
                         end
                     end
-                    envoyerWebhook(nomFaille, texteMinuteur, chance, configFaille.WEBHOOK_URL)
+                    -- Store the rift to send webhook later
+                    table.insert(detectedRifts, {nomFaille, texteMinuteur, chance, configFaille.WEBHOOK_URL})
                     print("Initial detection of " .. nomFaille .. " with time: " .. texteMinuteur)
                 else
                     print(nomFaille .. " timer not found in initial scan")
@@ -545,6 +567,13 @@ local function initialScan()
             end
         end
     end
+
+    -- Process all detected rifts
+    for _, riftData in ipairs(detectedRifts) do
+        local nomFaille, texteMinuteur, chance, webhookUrl = unpack(riftData)
+        envoyerWebhook(nomFaille, texteMinuteur, chance, webhookUrl)
+    end
+
     print("Initial scan completed!")
 end
 
