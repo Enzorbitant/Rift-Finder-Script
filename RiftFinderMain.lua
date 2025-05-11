@@ -513,7 +513,7 @@ local CHEMINS_FAILLES = {
     }
 }
 
--- Fonction pour envoyer un webhook (avec nom fixe, image, JobId copiable et bouton Rejoindre)
+-- Fonction pour envoyer un webhook (sans auteur, avec titres stylés)
 local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
     print("Attempting to send webhook for " .. nomFaille .. " to " .. tostring(urlWebhook))
     local multiplicateur = chance or "Unknown"
@@ -533,13 +533,9 @@ local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
         end
     end
 
-    -- Embed with fixed author name, image, and copiable JobId with Rejoindre Serveur button
+    -- Embed without author, with styled title
     local embed = {
-        author = {
-            name = "BGSI FR | .gg/pVaaDtxkUe",
-            icon_url = "https://i.imgur.com/Qbto31I.png"
-        },
-        title = nomFaille .. " Trouvé !",
+        title = nomFaille:gsub("_", " "):gsub("(%a)([%w']*)", function(first, rest) return first:upper() .. rest:lower() end) .. " Trouvé !",
         color = 16777023, -- Light purple as requested
         fields = {
             {name = "⏱️ Temps Restant", value = tostring(tempsRestant), inline = true},
@@ -553,7 +549,7 @@ local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
             }
         },
         footer = {
-            text = "BGSI FR | .gg/pVaaDtxkUe - " .. os.date("%Y-%m-%d - %I:%M:%S %p")
+            text = os.date("%Y-%m-%d - %I:%M:%S %p")
         },
         timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ") -- Simplified ISO 8601 format
     }
