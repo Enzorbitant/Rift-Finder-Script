@@ -164,20 +164,16 @@ local function verifierFailles()
             
             if existe then
                 local texteMinuteur = donneesFaille.Minuteur.Text
-                local minutes = tonumber(texteMinuteur:match("(%d+)%s*min")) or 0
-                
-                if minutes >= CONFIG.TEMPS_MINIMUM_WEBHOOK then
-                    local chance = nil
-                    if donneesFaille.Chance then
-                        local texteChance = donneesFaille.Chance.Text:upper()
-                        if table.find(CONFIG.CHANCE_CIBLE, texteChance) then
-                            chance = texteChance
-                        else
-                            continue
-                        end
+                local chance = nil
+                if donneesFaille.Chance then
+                    local texteChance = donneesFaille.Chance.Text:upper()
+                    if table.find(CONFIG.CHANCE_CIBLE, texteChance) then
+                        chance = texteChance
+                    else
+                        continue
                     end
-                    envoyerWebhook(nomFaille, texteMinuteur, chance, configFaille.WEBHOOK_URL)
                 end
+                envoyerWebhook(nomFaille, texteMinuteur, chance, configFaille.WEBHOOK_URL)
             end
         end
     end
