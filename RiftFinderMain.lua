@@ -510,40 +510,38 @@ local CHEMINS_FAILLES = {
     }
 }
 
--- Fonction pour envoyer un webhook (with updated format)
+-- Fonction pour envoyer un webhook (with exact embed format)
 local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
     print("Attempting to send webhook for " .. nomFaille .. " to " .. tostring(urlWebhook))
     local multiplicateur = chance or "Unknown"
     local playerCount = #Players:GetPlayers()
     local maxPlayers = Players.MaxPlayers or 100
-    local joueurs = tostring(playerCount) .. " / " .. tostring(maxPlayers)
+    local joueurs = tostring(playerCount) .. "/" .. tostring(maxPlayers)
     local jobId = game.JobId or "unknown_jobid"
     local joinUrl = "https://joinbgsi.shop/?placeID=85896571713843&gameInstanceId=" .. jobId
 
-    -- Apply translations for field values
-    local translatedTempsRestant = tempsRestant
-    if translatedTempsRestant:find("Minutes") then
-        translatedTempsRestant = translatedTempsRestant:gsub("Minutes", "Minutes")
-    end
-
-    local translatedJoueurs = joueurs
-    if playerCount == 1 then
-        translatedJoueurs = translatedJoueurs:gsub("1 / " .. tostring(maxPlayers), "1 Joueur / " .. tostring(maxPlayers) .. " Joueurs")
-    else
-        translatedJoueurs = translatedJoueurs:gsub(tostring(playerCount) .. " / " .. tostring(maxPlayers), tostring(playerCount) .. " Joueurs / " .. tostring(maxPlayers) .. " Joueurs")
-    end
+    -- Get height from decoration position Y (approximation)
+    local chemin = CHEMINS_FAILLES[nomFaille].Chemin()
+    local hauteur = chemin and math.floor(chemin.Position.Y) or "N/A"
 
     local embed = {
         title = nomFaille .. " Trouvé !",
-        color = 0x00FF00,
+        color = 16777023,
         fields = {
-            {name = "⏱️ Temps Restant", value = translatedTempsRestant, inline = true},
+            {name = "⏱️ Temps Restant", value = tempsRestant, inline = true},
+            {name = "📏 Hauteur", value = hauteur, inline = true},
             {name = "🍀 Multiplicateur", value = multiplicateur, inline = true},
-            {name = "👤 Nombre de Joueurs", value = translatedJoueurs, inline = true},
-            {name = "🌌 Téléportation", value = "[Rejoindre Serveur](" .. joinUrl .. ")", inline = true},
-            {name = "JobId", value = jobId, inline = true}
+            {name = "👤 Nombre de Joueurs", value = joueurs, inline = true},
+            {
+                name = "🌌 Téléportation",
+                value = "JobId```" .. jobId .. "```\n🔗 **[REJOINDRE SERVEUR](" .. joinUrl .. ")**",
+                inline = false
+            }
         },
-        timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ")
+        footer = {
+            text = "BGSI FR | .gg/pVaaDtxkUe - " .. os.date("%Y-%m-%d - %I:%M:%S %p")
+        },
+        timestamp = os.date("!%Y-%m-%dT%H:%M:%S%z")
     }
     
     if CONFIG.ID_DISCORD and CONFIG.ID_DISCORD ~= "" then
