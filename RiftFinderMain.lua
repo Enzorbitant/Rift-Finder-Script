@@ -69,19 +69,22 @@ local CHEMINS_FAILLES = {
     ROYAL_CHEST = {
         Chemin = function() 
             if Workspace.Rendered.Rifts:FindFirstChild("royal-chest") and Workspace.Rendered.Rifts["royal-chest"]:FindFirstChild("Decoration") then 
-                return Workspace.Rendered.Rifts["royal-chest"].Decoration.Model.islandbottom_collision.MeshPart 
+                local model = Workspace.Rendered.Rifts["royal-chest"].Decoration:FindFirstChild("Model")
+                if model and model:FindFirstChild("islandbottom_collision") then
+                    return model.islandbottom_collision.MeshPart
+                end
             end 
             return nil 
         end,
         Minuteur = function() 
-            if Workspace.Rendered.Rifts:FindFirstChild("royal-chest") then 
+            if Workspace.Rendered.Rifts:FindFirstChild("royal-chest") and Workspace.Rendered.Rifts["royal-chest"]:FindFirstChild("Display") then 
                 return Workspace.Rendered.Rifts["royal-chest"].Display.SurfaceGui.Timer 
             end 
             return nil 
         end,
         Hauteur = function() 
             if Workspace.Rendered.Rifts:FindFirstChild("royal-chest") and Workspace.Rendered.Rifts["royal-chest"]:FindFirstChild("Decoration") then 
-                return Workspace.Rendered.Rifts["royal-chest"].Decoration.Model.Position.Y 
+                return Workspace.Rendered.Rifts["royal-chest"].Decoration.Position.Y 
             end 
             return nil 
         end
@@ -94,7 +97,7 @@ local CHEMINS_FAILLES = {
             return nil 
         end,
         Minuteur = function() 
-            if Workspace.Rendered.Rifts:FindFirstChild("golden-chest") then 
+            if Workspace.Rendered.Rifts:FindFirstChild("golden-chest") and Workspace.Rendered.Rifts["golden-chest"]:FindFirstChild("Display") then 
                 return Workspace.Rendered.Rifts["golden-chest"].Display.SurfaceGui.Timer 
             end 
             return nil 
@@ -114,7 +117,7 @@ local CHEMINS_FAILLES = {
             return nil 
         end,
         Minuteur = function() 
-            if Workspace.Rendered.Rifts:FindFirstChild("dice-rift") then 
+            if Workspace.Rendered.Rifts:FindFirstChild("dice-rift") and Workspace.Rendered.Rifts["dice-rift"]:FindFirstChild("Display") then 
                 return Workspace.Rendered.Rifts["dice-rift"].Display.SurfaceGui.Timer 
             end 
             return nil 
@@ -134,13 +137,13 @@ local CHEMINS_FAILLES = {
             return nil 
         end,
         Minuteur = function() 
-            if Workspace.Rendered.Rifts:FindFirstChild("rainbow-egg") then 
+            if Workspace.Rendered.Rifts:FindFirstChild("rainbow-egg") and Workspace.Rendered.Rifts["rainbow-egg"]:FindFirstChild("Display") then 
                 return Workspace.Rendered.Rifts["rainbow-egg"].Display.SurfaceGui.Timer 
             end 
             return nil 
         end,
         Chance = function() 
-            if Workspace.Rendered.Rifts:FindFirstChild("rainbow-egg") then 
+            if Workspace.Rendered.Rifts:FindFirstChild("rainbow-egg") and Workspace.Rendered.Rifts["rainbow-egg"]:FindFirstChild("Display") then 
                 return Workspace.Rendered.Rifts["rainbow-egg"].Display.SurfaceGui.Icon.Luck 
             end 
             return nil 
@@ -160,13 +163,13 @@ local CHEMINS_FAILLES = {
             return nil 
         end,
         Minuteur = function() 
-            if Workspace.Rendered.Rifts:FindFirstChild("void-egg") then 
+            if Workspace.Rendered.Rifts:FindFirstChild("void-egg") and Workspace.Rendered.Rifts["void-egg"]:FindFirstChild("Display") then 
                 return Workspace.Rendered.Rifts["void-egg"].Display.SurfaceGui.Timer 
             end 
             return nil 
         end,
         Chance = function() 
-            if Workspace.Rendered.Rifts:FindFirstChild("void-egg") then 
+            if Workspace.Rendered.Rifts:FindFirstChild("void-egg") and Workspace.Rendered.Rifts["void-egg"]:FindFirstChild("Display") then 
                 return Workspace.Rendered.Rifts["void-egg"].Display.SurfaceGui.Icon.Luck 
             end 
             return nil 
@@ -186,13 +189,13 @@ local CHEMINS_FAILLES = {
             return nil 
         end,
         Minuteur = function() 
-            if Workspace.Rendered.Rifts:FindFirstChild("nightmare-egg") then 
+            if Workspace.Rendered.Rifts:FindFirstChild("nightmare-egg") and Workspace.Rendered.Rifts["nightmare-egg"]:FindFirstChild("Display") then 
                 return Workspace.Rendered.Rifts["nightmare-egg"].Display.SurfaceGui.Timer 
             end 
             return nil 
         end,
         Chance = function() 
-            if Workspace.Rendered.Rifts:FindFirstChild("nightmare-egg") then 
+            if Workspace.Rendered.Rifts:FindFirstChild("nightmare-egg") and Workspace.Rendered.Rifts["nightmare-egg"]:FindFirstChild("Display") then 
                 return Workspace.Rendered.Rifts["nightmare-egg"].Display.SurfaceGui.Icon.Luck 
             end 
             return nil 
@@ -212,13 +215,13 @@ local CHEMINS_FAILLES = {
             return nil 
         end,
         Minuteur = function() 
-            if Workspace.Rendered.Rifts:FindFirstChild("cyber-egg") then 
+            if Workspace.Rendered.Rifts:FindFirstChild("cyber-egg") and Workspace.Rendered.Rifts["cyber-egg"]:FindFirstChild("Display") then 
                 return Workspace.Rendered.Rifts["cyber-egg"].Display.SurfaceGui.Timer 
             end 
             return nil 
         end,
         Chance = function() 
-            if Workspace.Rendered.Rifts:FindFirstChild("cyber-egg") then 
+            if Workspace.Rendered.Rifts:FindFirstChild("cyber-egg") and Workspace.Rendered.Rifts["cyber-egg"]:FindFirstChild("Display") then 
                 return Workspace.Rendered.Rifts["cyber-egg"].Display.SurfaceGui.Icon.Luck 
             end 
             return nil 
@@ -235,7 +238,7 @@ local CHEMINS_FAILLES = {
 -- Fonction pour envoyer un webhook
 local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
     local hauteur = CHEMINS_FAILLES[nomFaille].Hauteur()
-    if not hauteur then return end -- Skip if hauteur can’t be found, you fuck
+    if not hauteur then return end -- Skip if hauteur can’t be found
     local multiplicateur = chance or "Unknown"
     local joueurs = tostring(#Players:GetPlayers()) .. "/" .. tostring(game.Players.MaxPlayers)
     local jobId = game.JobId
@@ -276,6 +279,8 @@ local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
     
     if not succes then
         warn("Échec de l'envoi du webhook pour " .. nomFaille .. " : " .. tostring(erreur))
+    else
+        print("Webhook sent for " .. nomFaille .. " successfully!")
     end
 end
 
@@ -291,12 +296,12 @@ local function verifierFailles()
             
             if existe then
                 local minuteur = donneesFaille.Minuteur()
-                if not minuteur then continue end -- Skip if timer can’t be found
+                if not minuteur then continue end
                 local texteMinuteur = minuteur.Text
                 local chance = nil
                 if donneesFaille.Chance then
                     local chanceObj = donneesFaille.Chance()
-                    if not chanceObj then continue end -- Skip if chance can’t be found
+                    if not chanceObj then continue end
                     local texteChance = chanceObj.Text:upper()
                     if table.find(CONFIG.SNIPE_LUCK, texteChance) then
                         chance = texteChance
@@ -308,6 +313,40 @@ local function verifierFailles()
             end
         end
     end
+end
+
+-- Fonction pour initial scan
+local function initialScan()
+    print("Starting initial scan of rifts...")
+    for nomFaille, donneesFaille in pairs(CHEMINS_FAILLES) do
+        local configFaille = CONFIG.FAILES[nomFaille]
+        if configFaille and configFaille.ACTIVE then
+            local existe = pcall(function()
+                local chemin = donneesFaille.Chemin()
+                return chemin and chemin.Parent ~= nil
+            end)
+            
+            if existe then
+                local minuteur = donneesFaille.Minuteur()
+                if minuteur then
+                    local texteMinuteur = minuteur.Text
+                    local chance = nil
+                    if donneesFaille.Chance then
+                        local chanceObj = donneesFaille.Chance()
+                        if chanceObj then
+                            local texteChance = chanceObj.Text:upper()
+                            if table.find(CONFIG.SNIPE_LUCK, texteChance) then
+                                chance = texteChance
+                            end
+                        end
+                    end
+                    envoyerWebhook(nomFaille, texteMinuteur, chance, configFaille.WEBHOOK_URL)
+                    print("Initial detection of " .. nomFaille .. " with time: " .. texteMinuteur)
+                end
+            end
+        end
+    end
+    print("Initial scan completed!")
 end
 
 -- Fonction pour changer de serveur
@@ -328,18 +367,4 @@ local function changerServeur()
         if not succes then
             warn("Teleport failed, shithead: " .. tostring(erreur))
             wait(10)
-            changerServeur()
-        end
-    end
-end
-
--- Boucle principale
-while true do
-    verifierFailles()
-    wait(CONFIG.INTERVALLE_VERIFICATION)
-    
-    -- Changer de serveur après l'intervalle
-    if os.time() % CONFIG.INTERVALLE_CHANGEMENT_SERVEUR < CONFIG.INTERVALLE_VERIFICATION then
-        changerServeur()
-    end
-end
+            changerServe
