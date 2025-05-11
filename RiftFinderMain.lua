@@ -513,7 +513,7 @@ local CHEMINS_FAILLES = {
     }
 }
 
--- Fonction pour envoyer un webhook (avec nom fixe, image, et JobId copiable)
+-- Fonction pour envoyer un webhook (avec nom fixe, image, JobId copiable et bouton Rejoindre)
 local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
     print("Attempting to send webhook for " .. nomFaille .. " to " .. tostring(urlWebhook))
     local multiplicateur = chance or "Unknown"
@@ -533,7 +533,7 @@ local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
         end
     end
 
-    -- Embed with fixed author name, image, and copiable JobId
+    -- Embed with fixed author name, image, and copiable JobId with Rejoindre Serveur button
     local embed = {
         author = {
             name = "BGSI FR | .gg/pVaaDtxkUe",
@@ -548,7 +548,7 @@ local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
             {name = "👤 Nombre de Joueurs", value = joueurs, inline = true},
             {
                 name = "🌌 Téléportation",
-                value = "`" .. jobId .. "`", -- JobId en code pour être copiable
+                value = "JobId: `" .. jobId .. "`\n🔗 **[REJOINDRE SERVEUR](" .. joinUrl .. ")**",
                 inline = false
             }
         },
