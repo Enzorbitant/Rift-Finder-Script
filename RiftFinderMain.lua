@@ -67,49 +67,175 @@ verifierCle()
 -- Définitions des failles
 local CHEMINS_FAILLES = {
     ROYAL_CHEST = {
-        Chemin = Workspace.Rendered.Rifts["royal-chest"].Decoration.Model.islandbottom_collision.MeshPart,
-        Minuteur = Workspace.Rendered.Rifts["royal-chest"].Display.SurfaceGui.Timer,
-        Hauteur = Workspace.Rendered.Rifts["royal-chest"].Decoration.Model.Position.Y
+        Chemin = function() 
+            if Workspace.Rendered.Rifts:FindFirstChild("royal-chest") then 
+                return Workspace.Rendered.Rifts["royal-chest"].Decoration.Model.islandbottom_collision.MeshPart 
+            end 
+            return nil 
+        end,
+        Minuteur = function() 
+            if Workspace.Rendered.Rifts:FindFirstChild("royal-chest") then 
+                return Workspace.Rendered.Rifts["royal-chest"].Display.SurfaceGui.Timer 
+            end 
+            return nil 
+        end,
+        Hauteur = function() 
+            if Workspace.Rendered.Rifts:FindFirstChild("royal-chest") then 
+                return Workspace.Rendered.Rifts["royal-chest"].Decoration.Model.Position.Y 
+            end 
+            return nil 
+        end
     },
     GOLDEN_CHEST = {
-        Chemin = Workspace.Rendered.Rifts["golden-chest"].Decoration["Meshes/floatingisland1_Circle.002"],
-        Minuteur = Workspace.Rendered.Rifts["golden-chest"].Display.SurfaceGui.Timer,
-        Hauteur = Workspace.Rendered.Rifts["golden-chest"].Decoration.Model.Position.Y
+        Chemin = function() 
+            if Workspace.Rendered.Rifts:FindFirstChild("golden-chest") then 
+                return Workspace.Rendered.Rifts["golden-chest"].Decoration["Meshes/floatingisland1_Circle.002"] 
+            end 
+            return nil 
+        end,
+        Minuteur = function() 
+            if Workspace.Rendered.Rifts:FindFirstChild("golden-chest") then 
+                return Workspace.Rendered.Rifts["golden-chest"].Display.SurfaceGui.Timer 
+            end 
+            return nil 
+        end,
+        Hauteur = function() 
+            if Workspace.Rendered.Rifts:FindFirstChild("golden-chest") then 
+                return Workspace.Rendered.Rifts["golden-chest"].Decoration.Model.Position.Y 
+            end 
+            return nil 
+        end
     },
     DICE_CHEST = {
-        Chemin = Workspace.Rendered.Rifts:GetChildren()[8].Decoration["Meshes/floatingisland1_Circle.002"],
-        Minuteur = Workspace.Rendered.Rifts:GetChildren()[8].Display.SurfaceGui.Timer,
-        Hauteur = Workspace.Rendered.Rifts:GetChildren()[8].Decoration.Model.Position.Y
+        Chemin = function() 
+            if #Workspace.Rendered.Rifts:GetChildren() >= 8 then 
+                return Workspace.Rendered.Rifts:GetChildren()[8].Decoration["Meshes/floatingisland1_Circle.002"] 
+            end 
+            return nil 
+        end,
+        Minuteur = function() 
+            if #Workspace.Rendered.Rifts:GetChildren() >= 8 then 
+                return Workspace.Rendered.Rifts:GetChildren()[8].Display.SurfaceGui.Timer 
+            end 
+            return nil 
+        end,
+        Hauteur = function() 
+            if #Workspace.Rendered.Rifts:GetChildren() >= 8 then 
+                return Workspace.Rendered.Rifts:GetChildren()[8].Decoration.Model.Position.Y 
+            end 
+            return nil 
+        end
     },
     RAINBOW_EGG = {
-        Chemin = Workspace.Rendered.Rifts:GetChildren()[9].Decoration["Meshes/floatingisland1_Circle.002"],
-        Minuteur = Workspace.Rendered.Rifts["rainbow-egg"].Display.SurfaceGui.Timer,
-        Chance = Workspace.Rendered.Rifts["rainbow-egg"].Display.SurfaceGui.Icon.Luck,
-        Hauteur = Workspace.Rendered.Rifts:GetChildren()[9].Decoration.Model.Position.Y
+        Chemin = function() 
+            if #Workspace.Rendered.Rifts:GetChildren() >= 9 then 
+                return Workspace.Rendered.Rifts:GetChildren()[9].Decoration["Meshes/floatingisland1_Circle.002"] 
+            end 
+            return nil 
+        end,
+        Minuteur = function() 
+            if Workspace.Rendered.Rifts:FindFirstChild("rainbow-egg") then 
+                return Workspace.Rendered.Rifts["rainbow-egg"].Display.SurfaceGui.Timer 
+            end 
+            return nil 
+        end,
+        Chance = function() 
+            if Workspace.Rendered.Rifts:FindFirstChild("rainbow-egg") then 
+                return Workspace.Rendered.Rifts["rainbow-egg"].Display.SurfaceGui.Icon.Luck 
+            end 
+            return nil 
+        end,
+        Hauteur = function() 
+            if #Workspace.Rendered.Rifts:GetChildren() >= 9 then 
+                return Workspace.Rendered.Rifts:GetChildren()[9].Decoration.Model.Position.Y 
+            end 
+            return nil 
+        end
     },
     VOID_EGG = {
-        Chemin = Workspace.Rendered.Rifts["void-egg"].Decoration["Meshes/floatingisland1_Circle.002"],
-        Minuteur = Workspace.Rendered.Rifts["void-egg"].Display.SurfaceGui.Timer,
-        Chance = Workspace.Rendered.Rifts["void-egg"].Display.SurfaceGui.Icon.Luck,
-        Hauteur = Workspace.Rendered.Rifts["void-egg"].Decoration.Model.Position.Y
+        Chemin = function() 
+            if Workspace.Rendered.Rifts:FindFirstChild("void-egg") then 
+                return Workspace.Rendered.Rifts["void-egg"].Decoration["Meshes/floatingisland1_Circle.002"] 
+            end 
+            return nil 
+        end,
+        Minuteur = function() 
+            if Workspace.Rendered.Rifts:FindFirstChild("void-egg") then 
+                return Workspace.Rendered.Rifts["void-egg"].Display.SurfaceGui.Timer 
+            end 
+            return nil 
+        end,
+        Chance = function() 
+            if Workspace.Rendered.Rifts:FindFirstChild("void-egg") then 
+                return Workspace.Rendered.Rifts["void-egg"].Display.SurfaceGui.Icon.Luck 
+            end 
+            return nil 
+        end,
+        Hauteur = function() 
+            if Workspace.Rendered.Rifts:FindFirstChild("void-egg") then 
+                return Workspace.Rendered.Rifts["void-egg"].Decoration.Model.Position.Y 
+            end 
+            return nil 
+        end
     },
     NIGHTMARE_EGG = {
-        Chemin = Workspace.Rendered.Rifts["nightmare-egg"].Decoration["Meshes/floatingisland1_Circle.002"],
-        Minuteur = Workspace.Rendered.Rifts["nightmare-egg"].Display.SurfaceGui.Timer,
-        Chance = Workspace.Rendered.Rifts["nightmare-egg"].Display.SurfaceGui.Icon.Luck,
-        Hauteur = Workspace.Rendered.Rifts["nightmare-egg"].Decoration.Model.Position.Y
+        Chemin = function() 
+            if Workspace.Rendered.Rifts:FindFirstChild("nightmare-egg") then 
+                return Workspace.Rendered.Rifts["nightmare-egg"].Decoration["Meshes/floatingisland1_Circle.002"] 
+            end 
+            return nil 
+        end,
+        Minuteur = function() 
+            if Workspace.Rendered.Rifts:FindFirstChild("nightmare-egg") then 
+                return Workspace.Rendered.Rifts["nightmare-egg"].Display.SurfaceGui.Timer 
+            end 
+            return nil 
+        end,
+        Chance = function() 
+            if Workspace.Rendered.Rifts:FindFirstChild("nightmare-egg") then 
+                return Workspace.Rendered.Rifts["nightmare-egg"].Display.SurfaceGui.Icon.Luck 
+            end 
+            return nil 
+        end,
+        Hauteur = function() 
+            if Workspace.Rendered.Rifts:FindFirstChild("nightmare-egg") then 
+                return Workspace.Rendered.Rifts["nightmare-egg"].Decoration.Model.Position.Y 
+            end 
+            return nil 
+        end
     },
     CYBER_EGG = {
-        Chemin = Workspace.Rendered.Rifts["cyber-egg"].Decoration.Model["Meshes/Floating Island_Circle.004 (2)"],
-        Minuteur = Workspace.Rendered.Rifts["cyber-egg"].Display.SurfaceGui.Timer,
-        Chance = Workspace.Rendered.Rifts["cyber-egg"].Display.SurfaceGui.Icon.Luck,
-        Hauteur = Workspace.Rendered.Rifts["cyber-egg"].Decoration.Model.Position.Y
+        Chemin = function() 
+            if Workspace.Rendered.Rifts:FindFirstChild("cyber-egg") then 
+                return Workspace.Rendered.Rifts["cyber-egg"].Decoration.Model["Meshes/Floating Island_Circle.004 (2)"] 
+            end 
+            return nil 
+        end,
+        Minuteur = function() 
+            if Workspace.Rendered.Rifts:FindFirstChild("cyber-egg") then 
+                return Workspace.Rendered.Rifts["cyber-egg"].Display.SurfaceGui.Timer 
+            end 
+            return nil 
+        end,
+        Chance = function() 
+            if Workspace.Rendered.Rifts:FindFirstChild("cyber-egg") then 
+                return Workspace.Rendered.Rifts["cyber-egg"].Display.SurfaceGui.Icon.Luck 
+            end 
+            return nil 
+        end,
+        Hauteur = function() 
+            if Workspace.Rendered.Rifts:FindFirstChild("cyber-egg") then 
+                return Workspace.Rendered.Rifts["cyber-egg"].Decoration.Model.Position.Y 
+            end 
+            return nil 
+        end
     }
 }
 
 -- Fonction pour envoyer un webhook
 local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
-    local hauteur = CHEMINS_FAILLES[nomFaille].Hauteur
+    local hauteur = CHEMINS_FAILLES[nomFaille].Hauteur()
+    if not hauteur then return end -- Skip if hauteur can’t be found, you fuck
     local multiplicateur = chance or "Unknown"
     local joueurs = tostring(#Players:GetPlayers()) .. "/" .. tostring(game.Players.MaxPlayers)
     local jobId = game.JobId
@@ -159,15 +285,20 @@ local function verifierFailles()
         local configFaille = CONFIG.FAILES[nomFaille]
         if configFaille and configFaille.ACTIVE then
             local existe = pcall(function()
-                return donneesFaille.Chemin.Parent ~= nil
+                local chemin = donneesFaille.Chemin()
+                return chemin and chemin.Parent ~= nil
             end)
             
             if existe then
-                local texteMinuteur = donneesFaille.Minuteur.Text
+                local minuteur = donneesFaille.Minuteur()
+                if not minuteur then continue end -- Skip if timer can’t be found, you fuck
+                local texteMinuteur = minuteur.Text
                 local chance = nil
                 if donneesFaille.Chance then
-                    local texteChance = donneesFaille.Chance.Text:upper()
-                    if table.find(CONFIG.CHANCE_CIBLE, texteChance) then
+                    local chanceObj = donneesFaille.Chance()
+                    if not chanceObj then continue end -- Skip if chance can’t be found
+                    local texteChance = chanceObj.Text:upper()
+                    if table.find(CONFIG.SNIPE_LUCK, texteChance) then
                         chance = texteChance
                     else
                         continue
