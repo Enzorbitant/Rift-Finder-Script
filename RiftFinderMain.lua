@@ -513,7 +513,7 @@ local CHEMINS_FAILLES = {
     }
 }
 
--- Fonction pour envoyer un webhook (avec "JobId:" au-dessus et JobId plus gros)
+-- Fonction pour envoyer un webhook (sans auteur, avec titres stylés)
 local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
     print("Attempting to send webhook for " .. nomFaille .. " to " .. tostring(urlWebhook))
     local multiplicateur = chance or "Unknown"
@@ -533,7 +533,7 @@ local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
         end
     end
 
-    -- Embed without author, with styled title and formatted JobId
+    -- Embed without author, with styled title
     local embed = {
         title = nomFaille:gsub("_", " "):gsub("(%a)([%w']*)", function(first, rest) return first:upper() .. rest:lower() end) .. " Trouvé !",
         color = 16777023, -- Light purple as requested
@@ -544,7 +544,7 @@ local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
             {name = "👤 Nombre de Joueurs", value = joueurs, inline = true},
             {
                 name = "🌌 Téléportation",
-                value = "**JobId:**\n**`" .. jobId .. "`**\n🔗 **[REJOINDRE SERVEUR](" .. joinUrl .. ")**",
+                value = "JobId: `" .. jobId .. "`\n🔗 **[REJOINDRE SERVEUR](" .. joinUrl .. ")**",
                 inline = false
             }
         },
