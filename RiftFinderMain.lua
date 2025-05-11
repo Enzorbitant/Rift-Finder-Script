@@ -108,28 +108,28 @@ local CHEMINS_FAILLES = {
     },
     DICE_CHEST = {
         Chemin = function() 
-            if #Workspace.Rendered.Rifts:GetChildren() >= 8 then 
-                return Workspace.Rendered.Rifts:GetChildren()[8].Decoration["Meshes/floatingisland1_Circle.002"] 
+            if Workspace.Rendered.Rifts:FindFirstChild("dice-rift") then 
+                return Workspace.Rendered.Rifts["dice-rift"].Decoration["Meshes/floatingisland1_Circle.002"] 
             end 
             return nil 
         end,
         Minuteur = function() 
-            if #Workspace.Rendered.Rifts:GetChildren() >= 8 then 
-                return Workspace.Rendered.Rifts:GetChildren()[8].Display.SurfaceGui.Timer 
+            if Workspace.Rendered.Rifts:FindFirstChild("dice-rift") then 
+                return Workspace.Rendered.Rifts["dice-rift"].Display.SurfaceGui.Timer 
             end 
             return nil 
         end,
         Hauteur = function() 
-            if #Workspace.Rendered.Rifts:GetChildren() >= 8 then 
-                return Workspace.Rendered.Rifts:GetChildren()[8].Decoration.Model.Position.Y 
+            if Workspace.Rendered.Rifts:FindFirstChild("dice-rift") then 
+                return Workspace.Rendered.Rifts["dice-rift"].Decoration.Model.Position.Y 
             end 
             return nil 
         end
     },
     RAINBOW_EGG = {
         Chemin = function() 
-            if #Workspace.Rendered.Rifts:GetChildren() >= 9 then 
-                return Workspace.Rendered.Rifts:GetChildren()[9].Decoration["Meshes/floatingisland1_Circle.002"] 
+            if Workspace.Rendered.Rifts:FindFirstChild("rainbow-egg") then 
+                return Workspace.Rendered.Rifts["rainbow-egg"].Decoration["Meshes/floatingisland1_Circle.002"] 
             end 
             return nil 
         end,
@@ -146,8 +146,8 @@ local CHEMINS_FAILLES = {
             return nil 
         end,
         Hauteur = function() 
-            if #Workspace.Rendered.Rifts:GetChildren() >= 9 then 
-                return Workspace.Rendered.Rifts:GetChildren()[9].Decoration.Model.Position.Y 
+            if Workspace.Rendered.Rifts:FindFirstChild("rainbow-egg") then 
+                return Workspace.Rendered.Rifts["rainbow-egg"].Decoration.Model.Position.Y 
             end 
             return nil 
         end
@@ -291,7 +291,7 @@ local function verifierFailles()
             
             if existe then
                 local minuteur = donneesFaille.Minuteur()
-                if not minuteur then continue end -- Skip if timer can’t be found, you fuck
+                if not minuteur then continue end -- Skip if timer can’t be found
                 local texteMinuteur = minuteur.Text
                 local chance = nil
                 if donneesFaille.Chance then
