@@ -1,26 +1,8 @@
 -- RiftFindersMain.lua
--- Vérifier que la config existe, sinon définir une config par défaut
+-- Vérifier que la config existe
 if not getgenv then getgenv = function() return _G end end
 if not getgenv().RiftFindersConfig then
-    print("Config not found, loading default config...")
-    getgenv().RiftFindersConfig = {
-        CLE_SCRIPT = "XK3L9-VT72D-WP5QZ-8MNC4-RY1TB",
-        ID_DISCORD = "",
-        AFFICHER_ID_SERVEUR = true,
-        FAILES = {
-            ROYAL_CHEST = { ACTIVE = true, WEBHOOK_URL = "https://discord.com/api/webhooks/1371196607659376723/PDtan3H0gZc45EqVCqhZ5Hub299HAKGVL1N-MMAhQaafmheBrxE2A4PcdrbCZ59QquYI" },
-            GOLDEN_CHEST = { ACTIVE = true, WEBHOOK_URL = "https://discord.com/api/webhooks/1371196607659376723/PDtan3H0gZc45EqVCqhZ5Hub299HAKGVL1N-MMAhQaafmheBrxE2A4PcdrbCZ59QquYI" },
-            DICE_CHEST = { ACTIVE = true, WEBHOOK_URL = "https://discord.com/api/webhooks/1371196607659376723/PDtan3H0gZc45EqVCqhZ5Hub299HAKGVL1N-MMAhQaafmheBrxE2A4PcdrbCZ59QquYI" },
-            RAINBOW_EGG = { ACTIVE = true, WEBHOOK_URL = "https://discord.com/api/webhooks/1371196607659376723/PDtan3H0gZc45EqVCqhZ5Hub299HAKGVL1N-MMAhQaafmheBrxE2A4PcdrbCZ59QquYI" },
-            VOID_EGG = { ACTIVE = true, WEBHOOK_URL = "https://discord.com/api/webhooks/1371196607659376723/PDtan3H0gZc45EqVCqhZ5Hub299HAKGVL1N-MMAhQaafmheBrxE2A4PcdrbCZ59QquYI" },
-            NIGHTMARE_EGG = { ACTIVE = true, WEBHOOK_URL = "https://discord.com/api/webhooks/1371196607659376723/PDtan3H0gZc45EqVCqhZ5Hub299HAKGVL1N-MMAhQaafmheBrxE2A4PcdrbCZ59QquYI" },
-            CYBER_EGG = { ACTIVE = true, WEBHOOK_URL = "https://discord.com/api/webhooks/1371196607659376723/PDtan3H0gZc45EqVCqhZ5Hub299HAKGVL1N-MMAhQaafmheBrxE2A4PcdrbCZ59QquYI" }
-        },
-        SNIPE_LUCK = {"X5", "X10", "X25"},
-        INTERVALLE_VERIFICATION = 5,
-        INTERVALLE_CHANGEMENT_SERVEUR = 300,
-        HOP_SERVER = false
-    }
+    error("RiftFindersConfig introuvable. Exécutez RiftFindersConfig.lua d'abord.")
 end
 
 -- Services
@@ -51,16 +33,11 @@ local CLES_VALABLES = {
 -- Vérification de la clé
 local function verifierCle()
     print("Starting key verification...")
-    print("cle_script: " .. tostring(cle_script))
-    for key, _ in pairs(CLES_VALABLES) do
-        print("Available key: " .. key)
-    end
     local userId = Players.LocalPlayer and Players.LocalPlayer.UserId or 0
     local donneesCle = CLES_VALABLES[cle_script]
     if not donneesCle then
-        error("Clé invalide: " .. tostring(cle_script) .. ". Vérifiez la config.")
+        error("Clé invalide. Vérifiez votre clé dans RiftFindersConfig.lua.")
     end
-    print("Key HWID: " .. tostring(donneesCle.HWID))
     if not donneesCle.Comptes[userId] then
         donneesCle.Comptes[userId] = true
         local totalComptes = 0
