@@ -544,8 +544,7 @@ local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
             {name = "👤 Nombre de Joueurs", value = joueurs, inline = true},
             {
                 name = "🌌 Téléportation",
-                    value: 'JobId```af371255-8838-41cc-a337-3586cb6620ef```\n' +
-      '🔗 **[REJOINDRE SERVEUR](https://joinbgsi.shop/?placeID=85896571713843&gameInstanceId=af371255-8838-41cc-a337-3586cb6620ef)**',
+                value = "**JobId:**\n**`" .. jobId .. "`**\n🔗 **[REJOINDRE SERVEUR](" .. joinUrl .. ")**",
                 inline = false
             }
         },
