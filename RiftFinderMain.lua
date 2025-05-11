@@ -185,14 +185,24 @@ end
 
 -- Fonction pour changer de serveur
 local function changerServeur()
-    local succes, erreur = pcall(function()
-        TeleportService:Teleport(game.PlaceId, Players.LocalPlayer)
-    end)
-    
-    if not succes then
-        warn("Échec du changement de serveur : " .. tostring(erreur))
-        wait(10)
-        changerServeur()
+    if CONFIG.HOP_SERVER then
+        local succes, erreur = pcall(function()
+            TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, Players.LocalPlayer)
+        end)
+        if not succes then
+            warn("Hop failed, you dumbass: " .. tostring(erreur))
+            wait(10)
+            changerServeur()
+        end
+    else
+        local succes, erreur = pcall(function()
+            TeleportService:Teleport(game.PlaceId, Players.LocalPlayer)
+        end)
+        if not succes then
+            warn("Teleport failed, shithead: " .. tostring(erreur))
+            wait(10)
+            changerServeur()
+        end
     end
 end
 
