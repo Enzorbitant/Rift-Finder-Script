@@ -138,9 +138,9 @@ local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
         embeds = {embed}
     }
     
-    local cibleWebhook = urlWebhook or CONFIG.WEBHOOK_PAR_DEFAUT
+    local cibleWebhook = urlWebhook
     if not cibleWebhook or cibleWebhook == "" then
-        warn("Aucune URL de webhook valide pour " .. nomFaille)
+        error("No valid webhook URL for " .. nomFaille .. ", you fucked up!")
         return
     end
     
