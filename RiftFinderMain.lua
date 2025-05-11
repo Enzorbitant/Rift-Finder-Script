@@ -513,7 +513,7 @@ local CHEMINS_FAILLES = {
     }
 }
 
--- Fonction pour envoyer un webhook (corrigée pour la hauteur)
+-- Fonction pour envoyer un webhook (avec nom fixe, image, et JobId copiable)
 local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
     print("Attempting to send webhook for " .. nomFaille .. " to " .. tostring(urlWebhook))
     local multiplicateur = chance or "Unknown"
@@ -533,8 +533,12 @@ local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
         end
     end
 
-    -- Simplified embed to avoid compatibility issues
+    -- Embed with fixed author name, image, and copiable JobId
     local embed = {
+        author = {
+            name = "BGSI FR | .gg/pVaaDtxkUe",
+            icon_url = "https://i.imgur.com/Qbto31I.png"
+        },
         title = nomFaille .. " Trouvé !",
         color = 16777023, -- Light purple as requested
         fields = {
@@ -544,7 +548,7 @@ local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
             {name = "👤 Nombre de Joueurs", value = joueurs, inline = true},
             {
                 name = "🌌 Téléportation",
-                value = "JobId: " .. jobId .. "\n[REJOINDRE SERVEUR](" .. joinUrl .. ")",
+                value = "`" .. jobId .. "`", -- JobId en code pour être copiable
                 inline = false
             }
         },
@@ -556,10 +560,6 @@ local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
     
     if CONFIG.ID_DISCORD and CONFIG.ID_DISCORD ~= "" then
         embed.content = "<@" .. CONFIG.ID_DISCORD .. ">"
-    end
-    
-    if CONFIG.AFFICHER_ID_SERVEUR and jobId ~= "unknown_jobid" then
-        table.insert(embed.fields, {name = "ID Serveur", value = jobId, inline = true})
     end
     
     local payload = {
