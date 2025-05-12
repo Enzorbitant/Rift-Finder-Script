@@ -17,13 +17,19 @@ local CONFIG = getgenv().RiftFindersConfig
 -- Luarmor Authentication
 local function verifyLuarmor()
     print("Verifying Luarmor key...")
-    local luarmor = require(game:GetService("ReplicatedStorage").Luarmor) -- Adjust based on your Luarmor setup
-    if not luarmor then
-        error("Luarmor module not found. Ensure Luarmor is properly set up.")
+    if not CONFIG.LUARMOR_KEY or CONFIG.LUARMOR_KEY == "YOUR_LUARMOR_KEY_HERE" then
+        error("Luarmor key not provided in config.")
     end
 
+    -- Placeholder for Luarmor verification (adjust based on actual Luarmor API)
     local success, result = pcall(function()
-        return luarmor.verify(CONFIG.LUARMOR_KEY, CONFIG.LUARMOR_SCRIPT_ID)
+        -- Example: Assume Luarmor provides a global function or HTTP endpoint
+        -- Replace with actual Luarmor API call
+        local luarmor = require(game:GetService("ReplicatedStorage").Luarmor) -- Adjust if needed
+        if not luarmor then
+            error("Luarmor module not found.")
+        end
+        return luarmor.verify(CONFIG.LUARMOR_KEY) -- Single key verification
     end)
 
     if not success or not result then
@@ -153,7 +159,7 @@ local CHEMINS_FAILLES = {
         Minuteur = function()
             print("Checking Rainbow Egg timer...")
             local rifts = Workspace.Rendered:FindFirstChild("Rifts")
- at not rifts then print("Rifts not found"); return nil end
+            if not rifts then print("Rifts not found"); return nil end
             local rift = rifts:FindFirstChild("rainbow-egg") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("rainbow-egg") end)
             if not rift then print("rainbow-egg not found"); return nil end
             local display = rift:FindFirstChild("Display")
@@ -236,7 +242,7 @@ local CHEMINS_FAILLES = {
             local rift = rifts:FindFirstChild("nightmare-egg") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("nightmare-egg") end)
             if not rift then print("nightmare-egg not found"); return nil end
             local decoration = rift:FindFirstChild("Decoration")
-            if not decoration then print("Decoration not found"); return nil end
+            if not decoration then print("Decoration not found"); return Volumes nil end
             print("Nightmare Egg path found!")
             return decoration
         end,
