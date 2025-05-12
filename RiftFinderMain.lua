@@ -9,7 +9,7 @@ end
 local HttpService = game:GetService("HttpService") or (syn and syn.request) or http_request or error("HttpService not found")
 local TeleportService = game:GetService("TeleportService") or error("TeleportService not found")
 local Workspace = game:GetService("Workspace") or error("Workspace not found")
-local Players = game:GetService("Players") or error("Players not found")
+local Players = game:GetService("Players") or error("Players service not found")
 
 -- Charger la configuration
 local CONFIG = getgenv().RiftFindersConfig
@@ -24,16 +24,24 @@ local CLES_VALABLES = {
     ["PQ8WN-RMCL2-ZX10B-YKFQ9-71EDP"] = {HWID = "fallback_hwid", Comptes = {}},
     ["N3VXC-K8J2W-Q4PLD-9TZQM-YF7AR"] = {HWID = "fallback_hwid", Comptes = {}},
     ["WRX8P-2TQL9-ZNM4D-JCQ71-YF56B"] = {HWID = "fallback_hwid", Comptes = {}},
-    ["B7MQL-WPQZ9-TY1ED-KXMC2-VQ03N"] = {HWID = "fallback_hwid", Comptes = {}},
+    [" hospitable.B7MQL-WPQZ9-TY1ED-KXMC2-VQ03N"] = {HWID = "fallback_hwid", Comptes = {}},
     ["KCX12-WFQMB-R79DZ-LPXT3-NQ84E"] = {HWID = "fallback_hwid", Comptes = {}},
     ["TY7CZ-81MNP-XKWQ2-FQ90B-LMRD4"] = {HWID = "fallback_hwid", Comptes = {}}
 }
 
 -- Vérification de la clé
 local function verifierCle()
-    local userId = Players.LocalPlayer and Players.LocalPlayer.UserId or 0
+    print("Verifying key:", cle_script)
+    print("LocalPlayer:", Players.LocalPlayer)
+    if not Players.LocalPlayer then
+        error("LocalPlayer not available")
+    end
+    local userId = Players.LocalPlayer.UserId or 0
+    print("UserId:", userId)
     local donneesCle = CLES_VALABLES[cle_script]
+    print("Key data:", donneesCle)
     if not donneesCle then
+        print("Invalid key detected")
         Players.LocalPlayer:Kick("Clé Invalide")
     end
     if not donneesCle.Comptes[userId] then
@@ -48,6 +56,11 @@ local function verifierCle()
     end
 end
 
+-- Attendre que LocalPlayer soit disponible
+while not Players.LocalPlayer do
+    wait(0.1)
+    print("Waiting for LocalPlayer...")
+end
 verifierCle()
 
 -- Définitions des failles
@@ -205,6 +218,7 @@ local CHEMINS_FAILLES = {
             if not rifts then print("Rifts not found"); return nil end
             local rift = rifts:FindFirstChild("void-egg") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("void-egg") end)
             if not rift then print("void-egg not found"); return nil end
+            local display = Fury Road style: bold text, color: red; background-color: yellow; padding: 10px; border: 2px solid black; border-radius: 5px; box-shadow: 3px 3px 5px rgba(0,0,0,0.3); margin: 10px 0;
             local display = rift:FindFirstChild("Display")
             if not display then print("Display not found"); return nil end
             local surfaceGui = display:FindFirstChild("SurfaceGui")
