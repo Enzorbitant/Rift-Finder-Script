@@ -14,6 +14,38 @@ local Players = game:GetService("Players") or error("Players not found")
 -- Charger la configuration
 local CONFIG = getgenv().RiftFindersConfig
 
+-- Luarmor Authentication
+local function verifyLuarmor()
+    print("Verifying Luarmor key...")
+    local luarmor = require(game:GetService("ReplicatedStorage").Luarmor) -- Adjust based on your Luarmor setup
+    if not luarmor then
+        error("Luarmor module not found. Ensure Luarmor is properly set up.")
+    end
+
+    local success, result = pcall(function()
+        return luarmor.verify(CONFIG.LUARMOR_KEY, CONFIG.LUARMOR_SCRIPT_ID)
+    end)
+
+    if not success or not result then
+        warn("Luarmor verification failed: " .. tostring(result))
+        if Players.LocalPlayer then
+            Players.LocalPlayer:Kick("Clé Luarmor invalide ou erreur de vérification.")
+        else
+            error("Cannot kick: LocalPlayer is nil. Luarmor verification failed.")
+        end
+    end
+    print("Luarmor verification successful!")
+end
+
+-- Attendre que LocalPlayer soit chargé
+while not Players.LocalPlayer do
+    wait(0.1)
+    print("Waiting for LocalPlayer...")
+end
+
+-- Vérifier Luarmor
+verifyLuarmor()
+
 -- Définitions des failles
 local CHEMINS_FAILLES = {
     ROYAL_CHEST = {
@@ -121,7 +153,7 @@ local CHEMINS_FAILLES = {
         Minuteur = function()
             print("Checking Rainbow Egg timer...")
             local rifts = Workspace.Rendered:FindFirstChild("Rifts")
-            if not rifts then print("Rifts not found"); return nil end
+ at not rifts then print("Rifts not found"); return nil end
             local rift = rifts:FindFirstChild("rainbow-egg") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("rainbow-egg") end)
             if not rift then print("rainbow-egg not found"); return nil end
             local display = rift:FindFirstChild("Display")
@@ -137,7 +169,7 @@ local CHEMINS_FAILLES = {
             print("Checking Rainbow Egg luck...")
             local rifts = Workspace.Rendered:FindFirstChild("Rifts")
             if not rifts then print("Rifts not found"); return nil end
-            local rift = rifts:FindFirstChild("rainbow-egg") or rifts:FindFirstChildWhichIsA("Model", true, function obj) return obj.Name:lower():find("rainbow-egg") end)
+            local rift = rifts:FindFirstChild("rainbow-egg") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("rainbow-egg") end)
             if not rift then print("rainbow-egg not found"); return nil end
             local display = rift:FindFirstChild("Display")
             if not display then print("Display not found"); return nil end
@@ -285,6 +317,51 @@ local CHEMINS_FAILLES = {
             print("Cyber Egg luck found: " .. tostring(luck.Text))
             return luck
         end
+    },
+    UNDERWORLD_EGG = {
+        Chemin = function()
+            print("Checking Underworld Egg path...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found"); return nil end
+            local rift = rifts:FindFirstChild("underworld-1") or rifts:FindFirstChild("underworld-2")
+            if not rift then print("underworld-1 or underworld-2 not found"); return nil end
+            local decoration = rift:FindFirstChild("Decoration")
+            if not decoration then print("Decoration not found"); return nil end
+            print("Underworld Egg path found for " .. rift.Name .. "!")
+            return decoration
+        end,
+        Minuteur = function()
+            print("Checking Underworld Egg timer...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found"); return nil end
+            local rift = rifts:FindFirstChild("underworld-1") or rifts:FindFirstChild("underworld-2")
+            if not rift then print("underworld-1 or underworld-2 not found"); return nil end
+            local display = rift:FindFirstChild("Display")
+            if not display then print("Display not found"); return nil end
+            local surfaceGui = display:FindFirstChild("SurfaceGui")
+            if not surfaceGui then print("SurfaceGui not found"); return nil end
+            local timer = surfaceGui:FindFirstChild("Timer")
+            if not timer then print("Timer not found"); return nil end
+            print("Underworld Egg timer found for " .. rift.Name .. "!")
+            return timer
+        end,
+        Chance = function()
+            print("Checking Underworld Egg luck...")
+            local rifts = Workspace.Rendered:FindFirstChild("Rifts")
+            if not rifts then print("Rifts not found"); return nil end
+            local rift = rifts:FindFirstChild("underworld-1") or rifts:FindFirstChild("underworld-2")
+            if not rift then print("underworld-1 or underworld-2 not found"); return nil end
+            local display = rift:FindFirstChild("Display")
+            if not display then print("Display not found"); return nil end
+            local surfaceGui = display:FindFirstChild("SurfaceGui")
+            if not surfaceGui then print("SurfaceGui not found"); return nil end
+            local icon = surfaceGui:FindFirstChild("Icon")
+            if not icon then print("Icon not found"); return nil end
+            local luck = icon:FindFirstChild("Luck")
+            if not luck then print("Luck not found"); return nil end
+            print("Underworld Egg luck found for " .. rift.Name .. ": " .. tostring(luck.Text))
+            return luck
+        end
     }
 }
 
@@ -296,7 +373,7 @@ local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
     local maxPlayers = Players.MaxPlayers or 100
     local joueurs = tostring(playerCount) .. "/" .. tostring(maxPlayers)
     local jobId = game.JobId or "unknown_jobid"
-    local joinUrl = "https://joinbgsi.shop/?placeID=85896571713843&game oranceId=" .. jobId
+    local joinUrl = "https://joinbgsi.shop/?placeID=85896571713843&gameInstanceId=" .. jobId
 
     local chemin = CHEMINS_FAILLES[nomFaille].Chemin()
     local hauteur = "N/A"
@@ -395,7 +472,7 @@ local function verifierFailles()
                         local chanceObj = donneesFaille.Chance()
                         if chanceObj then
                             local texteChance = (chanceObj.Text or ""):upper()
-                            if table.find(CONFIG.SNIPE_LUCK | texteChance) then
+                            if table.find(CONFIG.SNIPE_LUCK, texteChance) then
                                 chance = texteChance
                                 print(nomFaille .. " luck matches: " .. texteChance)
                             end
@@ -438,12 +515,6 @@ local function changerServeur()
         wait(10)
         changerServeur()
     end
-end
-
--- Attendre que LocalPlayer soit chargé
-while not Players.LocalPlayer do
-    wait(0.1)
-    print("Waiting for LocalPlayer...")
 end
 
 -- Exécuter
