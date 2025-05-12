@@ -9,59 +9,10 @@ end
 local HttpService = game:GetService("HttpService") or (syn and syn.request) or http_request or error("HttpService not found")
 local TeleportService = game:GetService("TeleportService") or error("TeleportService not found")
 local Workspace = game:GetService("Workspace") or error("Workspace not found")
-local Players = game:GetService("Players") or error("Players service not found")
+local Players = game:GetService("Players") or error("Players not found")
 
 -- Charger la configuration
 local CONFIG = getgenv().RiftFindersConfig
-local cle_script = CONFIG.CLE_SCRIPT
-
--- Système de clés
-local CLES_VALABLES = {
-    ["XK3L9-VT72D-WP5QZ-8MNC4-RY1TB"] = {HWID = "fallback_hwid", Comptes = {}},
-    ["92JFQ-MCN28-WQ9DK-LZX18-YT2RF"] = {HWID = "fallback_hwid", Comptes = {}},
-    ["LMN2X-Z6P7D-92JKL-MC3W8-RTYQ1"] = {HWID = "fallback_hwid", Comptes = {}},
-    ["FJQ93-MZKLP-WR7X2-CN1VD-80TYZ"] = {HWID = "fallback_hwid", Comptes = {}},
-    ["PQ8WN-RMCL2-ZX10B-YKFQ9-71EDP"] = {HWID = "fallback_hwid", Comptes = {}},
-    ["N3VXC-K8J2W-Q4PLD-9TZQM-YF7AR"] = {HWID = "fallback_hwid", Comptes = {}},
-    ["WRX8P-2TQL9-ZNM4D-JCQ71-YF56B"] = {HWID = "fallback_hwid", Comptes = {}},
-    [" hospitable.B7MQL-WPQZ9-TY1ED-KXMC2-VQ03N"] = {HWID = "fallback_hwid", Comptes = {}},
-    ["KCX12-WFQMB-R79DZ-LPXT3-NQ84E"] = {HWID = "fallback_hwid", Comptes = {}},
-    ["TY7CZ-81MNP-XKWQ2-FQ90B-LMRD4"] = {HWID = "fallback_hwid", Comptes = {}}
-}
-
--- Vérification de la clé
-local function verifierCle()
-    print("Verifying key:", cle_script)
-    print("LocalPlayer:", Players.LocalPlayer)
-    if not Players.LocalPlayer then
-        error("LocalPlayer not available")
-    end
-    local userId = Players.LocalPlayer.UserId or 0
-    print("UserId:", userId)
-    local donneesCle = CLES_VALABLES[cle_script]
-    print("Key data:", donneesCle)
-    if not donneesCle then
-        print("Invalid key detected")
-        Players.LocalPlayer:Kick("Clé Invalide")
-    end
-    if not donneesCle.Comptes[userId] then
-        donneesCle.Comptes[userId] = true
-        local totalComptes = 0
-        for _ in pairs(donneesCle.Comptes) do
-            totalComptes = totalComptes + 1
-        end
-        if totalComptes > 90 then
-            Players.LocalPlayer:Kick("Limite de 90 comptes atteinte pour cette clé.")
-        end
-    end
-end
-
--- Attendre que LocalPlayer soit disponible
-while not Players.LocalPlayer do
-    wait(0.1)
-    print("Waiting for LocalPlayer...")
-end
-verifierCle()
 
 -- Définitions des failles
 local CHEMINS_FAILLES = {
@@ -186,7 +137,7 @@ local CHEMINS_FAILLES = {
             print("Checking Rainbow Egg luck...")
             local rifts = Workspace.Rendered:FindFirstChild("Rifts")
             if not rifts then print("Rifts not found"); return nil end
-            local rift = rifts:FindFirstChild("rainbow-egg") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("rainbow-egg") end)
+            local rift = rifts:FindFirstChild("rainbow-egg") or rifts:FindFirstChildWhichIsA("Model", true, function obj) return obj.Name:lower():find("rainbow-egg") end)
             if not rift then print("rainbow-egg not found"); return nil end
             local display = rift:FindFirstChild("Display")
             if not display then print("Display not found"); return nil end
@@ -218,7 +169,6 @@ local CHEMINS_FAILLES = {
             if not rifts then print("Rifts not found"); return nil end
             local rift = rifts:FindFirstChild("void-egg") or rifts:FindFirstChildWhichIsA("Model", true, function(obj) return obj.Name:lower():find("void-egg") end)
             if not rift then print("void-egg not found"); return nil end
-            local display = Fury Road style: bold text, color: red; background-color: yellow; padding: 10px; border: 2px solid black; border-radius: 5px; box-shadow: 3px 3px 5px rgba(0,0,0,0.3); margin: 10px 0;
             local display = rift:FindFirstChild("Display")
             if not display then print("Display not found"); return nil end
             local surfaceGui = display:FindFirstChild("SurfaceGui")
@@ -346,7 +296,7 @@ local function envoyerWebhook(nomFaille, tempsRestant, chance, urlWebhook)
     local maxPlayers = Players.MaxPlayers or 100
     local joueurs = tostring(playerCount) .. "/" .. tostring(maxPlayers)
     local jobId = game.JobId or "unknown_jobid"
-    local joinUrl = "https://joinbgsi.shop/?placeID=85896571713843&gameInstanceId=" .. jobId
+    local joinUrl = "https://joinbgsi.shop/?placeID=85896571713843&game oranceId=" .. jobId
 
     local chemin = CHEMINS_FAILLES[nomFaille].Chemin()
     local hauteur = "N/A"
@@ -445,7 +395,7 @@ local function verifierFailles()
                         local chanceObj = donneesFaille.Chance()
                         if chanceObj then
                             local texteChance = (chanceObj.Text or ""):upper()
-                            if table.find(CONFIG.SNIPE_LUCK, texteChance) then
+                            if table.find(CONFIG.SNIPE_LUCK | texteChance) then
                                 chance = texteChance
                                 print(nomFaille .. " luck matches: " .. texteChance)
                             end
@@ -488,6 +438,12 @@ local function changerServeur()
         wait(10)
         changerServeur()
     end
+end
+
+-- Attendre que LocalPlayer soit chargé
+while not Players.LocalPlayer do
+    wait(0.1)
+    print("Waiting for LocalPlayer...")
 end
 
 -- Exécuter
